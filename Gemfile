@@ -78,7 +78,7 @@ group :development, :test do
   gem 'utility_belt'
 
   # -- [ Tools ] ---------------------------------------------------------------
-  gem 'rcov'
+  gem 'simplecov', :require => false
   gem 'ruby-debug19'
   gem 'annotate'
   gem "nifty-generators"
