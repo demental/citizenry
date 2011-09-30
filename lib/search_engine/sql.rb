@@ -1,5 +1,3 @@
-#require 'lib/search_engine/base'
-
 class SearchEngine::Sql < SearchEngine::Base
   score false
 
@@ -21,17 +19,19 @@ class SearchEngine::Sql < SearchEngine::Base
 
         order = opts[:order] || "LOWER(#{self.table_name}.name) ASC"
 
-        pagination_options = {}
-        pagination_options[:page] = opts.delete(:page) if opts[:page].present?
-        pagination_options[:per_page] = opts.delete(:per_page) if opts[:per_page].present?
-
+        pagination_options = {
+          :page => (opts.delete(:page) if opts[:page].present?) || 1 ,
+          :per_page => (opts.delete(:per_page) if opts[:per_page].present?) || 30
+        } if limit.nil?
+        
         conditions_text = fields.map{|field| "LOWER(#{self.table_name}.#{field}) LIKE :like_query"}.join(" OR ")
         conditions = [conditions_text, {:like_query => "%#{query.downcase}%"}]
 
-        results = self.all(:conditions => conditions, :order => order, :limit => limit)
-        results = results.paginate(pagination_options) unless pagination_options.empty?
-
-        return results
+        if pagination_options.nil?
+          self.paginate(pagination_options.merge(:conditions => conditions, :order => order))
+        else
+          self.all(:conditions => conditions, :order => order)
+        end  
       end
     end
   end

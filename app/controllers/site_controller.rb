@@ -16,7 +16,7 @@ class SiteController < ApplicationController
     if params[:query]
       pagination_options = params[:page] == 'all' \
                             ? {:page => 1, :per_page => 9999999} \
-                            : { :page => params[:page], :per_page => params[:per_page] || 30 }
+                            : { :page => params[:page] || 1, :per_page => params[:per_page] || 30 }
       @results = SearchEngine.search(params[:query], {:match_mode => :extended}.merge(pagination_options))
 
       if request.format.html? && @results.length == 1
