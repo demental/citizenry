@@ -18,21 +18,23 @@ gem 'hoptoad_notifier'
 #--[ Utility ]------------------------------------------------------------------
 gem 'httparty', '~> 0.7.4'
 gem "json", "~> 1.4.6"
-gem 'addressable', '~> 2.2.4'
+gem 'addressable', '~> 2.2.6'
 
 #--[ Authentication ]-----------------------------------------------------------
-gem 'devise', "~> 1.1.5"
-gem 'omniauth', "~> 0.2.6"
+gem 'devise', "~> 1.4.7"
+gem 'omniauth', "~> 0.3.0"
 
 # Automatic login provider selection
-gem 'redfinger', '~> 0.1.0', :git => "https://github.com/reidab/redfinger.git"
+gem 'redfinger', '~> 0.1.0'
 gem 'ruby-openid', '~> 2.1.8'
 gem 'net-dns', '~> 0.6.1', :require => 'net/dns/resolver'
 
 # Client libraries for authenticated services
-gem 'twitter', '~> 1.6.0'
-gem 'linkedin', '~> 0.2.2', :git => "https://github.com/pengwynn/linkedin.git", :tag => 'v0.2.2'
-gem 'mogli', '~>0.0.25', :git => "https://github.com/reidab/mogli.git" # facebook
+# depenency that couldn't get resolved by bundle 
+gem 'hashie', '~> 1.1.0'
+gem 'twitter', '~> 1.7.2'
+gem 'linkedin', '~> 0.3.2'
+gem 'mogli', '~> 0.0.34' # facebook
 gem 'foursquare2', '~>1.1.0'   # https://gist.github.com/419219 <- github oauth docs!
 
 #--[ Search ]-------------------------------------------------------------------
@@ -47,7 +49,7 @@ gem "responders", "~> 0.6.2"
 gem 'acts-as-taggable-on', "~> 2.0.6"
 
 gem 'paper_trail', '~> 2'
-gem 'paper_trail_manager', :git => 'https://github.com/igal/paper_trail_manager.git'
+gem 'paper_trail_manager', '~> 0.1.3'
 # gem 'paper_trail_manager', :path => '../paper_trail_manager'
 
 #--[ View ]---------------------------------------------------------------------
@@ -59,7 +61,7 @@ gem 'jquery-rails', '>= 0.2.6'
 gem 'formtastic', '~>1.1.0'
 
 #--[ Controller ]---------------------------------------------------------------
-gem 'will_paginate', '~> 3.0.beta'
+gem 'will_paginate', '~> 3.0.2'
 
 #--[ Middleware ]---------------------------------------------------------------
 gem 'rack-jsonp', '~> 1.2.0'
@@ -77,7 +79,7 @@ group :development, :test do
 
   # -- [ Tools ] ---------------------------------------------------------------
   gem 'rcov'
-  gem 'ruby-debug'
+  gem 'ruby-debug19'
   gem 'annotate'
   gem "nifty-generators"
 end
