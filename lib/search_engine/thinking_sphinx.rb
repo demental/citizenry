@@ -1,4 +1,4 @@
-require 'lib/search_engine/base'
+#require 'lib/search_engine/base'
 
 class SearchEngine::ThinkingSphinx < SearchEngine::Base
   score true
