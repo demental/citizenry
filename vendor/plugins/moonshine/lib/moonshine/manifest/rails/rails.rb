@@ -59,25 +59,17 @@ module Moonshine::Manifest::Rails::Rails
   # This task ensures Rake is installed and that <tt>rake environment</tt>
   # executes without error in your <tt>rails_root</tt>.
   def rails_rake_environment
-    package 'rake', :provider => :gem, :ensure => :installed
-    file '/var/log/moonshine_rake.log',
-      :ensure   => :present,
-      :owner    => configuration[:user],
-      :group    => configuration[:group] || configuration[:user],
-      :mode     => '775',
-      :content  => ' ',
-      :backup   => false,
-      :loglevel => :debug
+    rake_version = configuration[:rake_version] || :installed
+    package 'rake', :provider => :gem, :ensure => rake_version
     exec 'rake tasks',
-      :command => 'rake environment 2>&1 | tee -a /var/log/moonshine_rake.log',
+      :command => 'rake environment',
       :user => configuration[:user],
       :cwd => rails_root,
       :environment => "RAILS_ENV=#{ENV['RAILS_ENV']}",
       :logoutput => true,
       :require => [
         exec('rails_gems'),
-        package('rake'),
-        file('/var/log/moonshine_rake.log')
+        package('rake')
       ]
   end
 
@@ -134,14 +126,20 @@ module Moonshine::Manifest::Rails::Rails
       end     
       
       bundle_install_without_groups = configuration[:bundler] && configuration[:bundler][:install_without_groups] || "development test"
+      bundle_install_options = [
+         '--deployment',
+         "--path #{configuration[:deploy_to]}/shared/bundle",
+         "--without '#{bundle_install_without_groups}'",
+         '--binstubs'
+      ]
       exec 'bundle install',
-        :command => "bundle install --deployment --path #{configuration[:deploy_to]}/shared/bundle --without #{bundle_install_without_groups}",
+        :command => "bundle install #{bundle_install_options.join(' ')}",
         :cwd => rails_root,
         :before => exec('rails_gems'),
         :require => file('/etc/gemrc'),
         :user => configuration[:user],
         :timeout => 108000,
-        :logoutput => true
+        :logoutput => :on_failure
 
     else
       return unless configuration[:gems]
@@ -225,8 +223,13 @@ module Moonshine::Manifest::Rails::Rails
     matches = Gem.source_index.search(exact_dep)
     installed_spec = matches.first
     if installed_spec
-      #it's already loaded, let's just specify that we want it installed
-      hash.merge!(:ensure => :installed)
+      if options[:version]
+        #if it's not installed and version specified, we require that version
+        hash.merge!(:ensure => options[:version])
+      else
+        #it's already loaded, let's just specify that we want it installed
+        hash.merge!(:ensure => :installed)
+      end
     else
       if options[:version]
         #if it's not installed and version specified, we require that version
@@ -270,7 +273,7 @@ module Moonshine::Manifest::Rails::Rails
   # app, with RAILS_ENV properly set
   def rake(name, options = {})
     exec("rake #{name}", {
-      :command => "rake #{name} 2>&1 | tee -a /var/log/moonshine_rake.log",
+      :command => "rake #{name}",
       :user => configuration[:user],
       :cwd => rails_root,
       :environment => "RAILS_ENV=#{ENV['RAILS_ENV']}",
