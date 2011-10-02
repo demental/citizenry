@@ -112,6 +112,8 @@ GEM
       thor (~> 0.14)
     json (1.4.6)
     json_pure (1.6.1)
+    kaminari (0.12.4)
+      rails (>= 3.0.0)
     launchy (2.0.5)
       addressable (~> 2.2.6)
     linecache19 (0.5.12)
@@ -332,6 +334,7 @@ DEPENDENCIES
   inherited_resources (~> 1.2.1)
   jquery-rails (>= 0.2.6)
   json (~> 1.4.6)
+  kaminari (~> 0.12.4)
   launchy
   linkedin (~> 0.3.2)
   mocha
@@ -359,5 +362,4 @@ DEPENDENCIES
   twitter (~> 1.7.2)
   utility_belt
   uuid
-  will_paginate (~> 3.0.2)
   wirble

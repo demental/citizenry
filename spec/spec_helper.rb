@@ -35,4 +35,7 @@ RSpec.configure do |config|
   FakeWeb.allow_net_connect = false
   require 'faker'
   Faker::Config.locale = :en
+  
+  config.include Devise::TestHelpers, :type => :controller
+  
 end

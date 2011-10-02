@@ -13,25 +13,21 @@ class SearchEngine::Sql < SearchEngine::Base
       #   * :venue => Sort by venue title
       # * :limit => Maximum number of entries to return. Defaults to 50.
       define_method(:search) do |query, *opts|
+
         opts = opts.first
         opts ||= {}
         limit = opts[:limit]
-
         order = opts[:order] || "LOWER(#{self.table_name}.name) ASC"
-
-        pagination_options = {
-          :page => (opts.delete(:page) if opts[:page].present?) || 1 ,
-          :per_page => (opts.delete(:per_page) if opts[:per_page].present?) || 30
-        } if limit.nil?
         
         conditions_text = fields.map{|field| "LOWER(#{self.table_name}.#{field}) LIKE :like_query"}.join(" OR ")
         conditions = [conditions_text, {:like_query => "%#{query.downcase}%"}]
 
-        if pagination_options.nil?
-          self.paginate(pagination_options.merge(:conditions => conditions, :order => order))
+        if( !limit )
+          self.where(conditions).order(order)
         else
-          self.all(:conditions => conditions, :order => order)
-        end  
+          self.where(conditions).order(order).limit(limit)
+        end
+        
       end
     end
   end
@@ -48,8 +44,15 @@ class SearchEngine::Sql < SearchEngine::Base
   end
 
   def self.search(query, options = {})
-    SearchEngine.searchable_models.map {|model|
+    results = SearchEngine.searchable_models.map {|model|
       model.to_s.constantize.search(query, options)
     }.flatten
+    if(!options[:limit])
+      page = (options.delete(:page) if options[:page].present?) || 1
+      per_page = (options.delete(:per_page) if options[:per_page].present?) || 30
+      Kaminari.paginate_array(results).page(page).per(per_page)
+    else
+      results
+    end
   end
 end

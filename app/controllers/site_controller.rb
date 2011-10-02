@@ -18,7 +18,7 @@ class SiteController < ApplicationController
                             ? {:page => 1, :per_page => 9999999} \
                             : { :page => params[:page] || 1, :per_page => params[:per_page] || 30 }
       @results = SearchEngine.search(params[:query], {:match_mode => :extended}.merge(pagination_options))
-
+      
       if request.format.html? && @results.length == 1
         flash[:notice] = t('notice.search_one_result',{:term=>params[:query]}).html_safe
         redirect_to @results.first and return

@@ -58,7 +58,7 @@ class ApplicationController < ActionController::Base
     if params[:page] == 'all'
       collection.all
     else
-      collection.paginate(:page => params[:page], :per_page => params[:per_page] || params[:grid] ? 28 : 30)
+      collection.page(params[:page]).per(params[:per_page] || params[:grid] ? 28 : 30)
     end
   end
 
@@ -85,11 +85,11 @@ class ApplicationController < ActionController::Base
         when :index
           controller_name.titleize
         when :new, :create
-          "New " + controller_name.singularize.humanize.downcase
+          t("title.model.new",:modelname => t('models.' + controller_name.singularize.humanize.downcase, :default => controller_name.singularize.humanize.downcase))
         when :edit, :update
-          "Edit " + controller_name.singularize.humanize.downcase
+          t("title.model.edit",:modelname => t('models.' + controller_name.singularize.humanize.downcase, :default => controller_name.singularize.humanize.downcase))
         when :destroy
-          "Destroy " + controller_name.singularize.humanize.downcase
+          t("title.model.destroy",:modelname => t('models.' + controller_name.singularize.humanize.downcase, :default => controller_name.singularize.humanize.downcase))
         else
           begin
             get_resource_ivar.name

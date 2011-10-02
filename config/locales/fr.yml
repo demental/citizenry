@@ -107,6 +107,10 @@ fr:
     technologies: Technologies
     tags: Tags
     employees: Employés
+    model:
+      new: Nouveau %{modelname}
+      edit: Modifier %{modelname}
+      destroy: Supprimer %{modelname}    
   sign_out: Déconnexion
   sign_in_join: Connexion    
   pager: 
