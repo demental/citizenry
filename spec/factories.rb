@@ -59,7 +59,7 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     admin false
     after_build do |user|
-      user.authentications = [ Factory.build(:authentication, :user => user) ]
+      user.authentications = [ FactoryGirl.build(:authentication, :user => user) ]
     end
   end
 
