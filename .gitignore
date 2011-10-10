@@ -19,3 +19,4 @@ log/searchd.development.pid
 \#*
 .\#*
 
+config/s3.yml
