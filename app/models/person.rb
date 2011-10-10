@@ -19,8 +19,8 @@ class Person < ActiveRecord::Base
                     :styles => { :medium => '220x220#', :thumb => '48x48#' }, 
                     :storage => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-                    :path => ":attachment/:id/:style.:extension"
-                    
+                    :path => ":attachment/:id/:style.:extension",
+                    :url  => ":s3_eu_url"
   PHOTO_SIZES = {:medium => 220, :thumb => 48} # for gravatar
 
   attr_accessor :photo_import_url
