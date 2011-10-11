@@ -264,7 +264,7 @@ fr:
     are_you_sure: Etes-vous sur?
   user:
     welcome:
-      hi: Bonjour %name!
+      hi: Bonjour %{name}!
       are_you_any: Etes-vous l'une de ces personnes ?
       already_in_directory: Vous étiez déjà inscrit dans le répertoire! Merci de vérifier vos informations et d'en valier l'exactitude.
       review_details: Vérifier vos informations
