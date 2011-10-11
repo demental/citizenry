@@ -157,7 +157,7 @@ fr:
     collaborators:
       title: Collaborateurs
     company_list:
-      title: entreprises
+      title: Entreprises
     logo:
       label: Uploader un logo
       hint: De préférence %{size}px de large ou plus
@@ -266,7 +266,7 @@ fr:
     welcome:
       hi: Bonjour %{name}!
       are_you_any: Etes-vous l'une de ces personnes ?
-      already_in_directory: Vous étiez déjà inscrit dans le répertoire! Merci de vérifier vos informations et d'en valier l'exactitude.
+      already_in_directory: Vous étiez déjà inscrit dans le répertoire! Merci de vérifier vos informations et d'en valider l'exactitude.
       review_details: Vérifier vos informations
       add_yourself: Ajoutez-vous à %{organization}
       is_this_you: Serait-ce vous?
