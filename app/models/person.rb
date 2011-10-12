@@ -15,26 +15,7 @@ class Person < ActiveRecord::Base
                                               :tags => {},
                                               :technologies => {}}
 
-  has_attached_file :photo, 
-                    :styles => { :medium => '220x220#', :thumb => '48x48#' }, 
-                    :storage => :s3,
-                    :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-                    :path => "#{self.to_s.downcase}/:attachment/:id/:style.:extension",
-                    :url  => ":s3_eu_url"
-  PHOTO_SIZES = {:medium => 220, :thumb => 48} # for gravatar
-
-  attr_accessor :photo_import_url
-  before_validation do
-    if self.photo_import_url.present?
-      url = self.photo_import_url.downcase
-      url = "http://#{url}" unless url.include?("http")
-
-      io = open(URI.parse(url))
-      def io.original_filename; base_uri.path.split('/').last; end
-
-      self.photo = io if io.original_filename.present?
-    end
-  end
+  import_image_from_url_as :photo, :gravatar => true
 
   belongs_to :user
 
@@ -53,12 +34,6 @@ class Person < ActiveRecord::Base
 
   scope :claimed, where('user_id IS NOT null')
   scope :unclaimed, where('user_id IS null')
-
-  # returns a photo url, with fallback to a unique-within-epdx generated avatar from gravatar
-  def photo_url(size)
-    size ||= :medium
-    self.photo.file? ? self.photo.url(size) : "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.id.to_s)}?d=retro&f=y&s=#{PHOTO_SIZES[size]}"
-  end
 
   private
 
