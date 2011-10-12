@@ -7,6 +7,8 @@
     %span{:class => 'twitter_link'}
       = t('people.list.on_twitter', :link => twitter_link(list_item.twitter)).html_safe
   %p{:class=>'bio'}= strip_links(list_item.bio)
-  - if context == :claim
-    .actions
+  .actions
+    - if context == :claim
       = link_to t('people.button.claim'), claim_person_path(list_item), :class => 'claim'
+    - if current_user.admin?
+      = link_to t('people.button.delete'), person_path(list_item), :method => :delete

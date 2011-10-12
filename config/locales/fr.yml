@@ -21,6 +21,7 @@ fr:
       addit: Ajouter ce groupe
       leave: Quitter ce groupe
       join: Rejoindre ce groupe
+      delete: Supprimer!      
     edit:
       title: Modification du groupe
     index:
@@ -32,6 +33,7 @@ fr:
       join: Rejoindre cette entreprise
       leave: Quitter cette entreprise
       add: + Ajouter une entreprise
+      delete: Supprimer!
     new:
       title: Nouvelle entreprise
     edit:
@@ -133,6 +135,7 @@ fr:
       join: Rejoindre ce projet
       leave: Quitter ce projet
       add: + Ajouter un projet
+      delete: Delete!
     new:
       title: Nouveau projet
     edit:
@@ -242,6 +245,7 @@ fr:
     button:
       add: + Ajouter une personne
       claim: C'est moi!
+      delete: Delete!
     edit:
       title: Modifier une personne
     list:

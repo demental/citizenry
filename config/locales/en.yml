@@ -7,6 +7,7 @@ en:
       leave: Leave this group
       add: + Add a Group
       addit: Add this Group      
+      delete: Delete!
     new:
       title: New group
     edit:
@@ -22,6 +23,7 @@ en:
       add: + Add a Company
       leave: Leave this company
       join: Join this company
+      delete: Delete!
     edit:
       title: Editing company
     index:
@@ -219,6 +221,7 @@ en:
     button:
       add: + Add Someone
       claim: That's me!
+      delete: Delete!
     new:
       search_network: Search your networks to add someone
       limit_reset_time: limit resets in %{time}.
