@@ -10,6 +10,19 @@ describe PeopleController do
         @user = Factory :user
         sign_in @user
       end
+      context "when user is not admin" do
+        it "does not have delete links for each user" do
+          people = []
+          10.times { people << Factory(:person) }
+          get :index
+          response.should be_success
+          people.each do |person|
+            response.body.should_not have_selector("a[href='#{person_path(person)}'][data-method='delete']")
+          end
+        end
+      end
+
+      end
       context "when user is admin" do
         before do
           @user.grant!
