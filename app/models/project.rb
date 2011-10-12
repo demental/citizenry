@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
                     :styles => { :medium => '220x220', :thumb => '48x48' }, 
                     :storage => :s3,
                     :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-                    :path => ":attachment/:id/:style.:extension",
+                    :path => "#{self.class.to_s.downcase}/:attachment/:id/:style.:extension",
                     :url  => ":s3_eu_url"
   
 
