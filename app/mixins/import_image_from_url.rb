@@ -33,7 +33,7 @@ module ImportImageFromURL
 
       # Save field's settings based user's preferences and defaults
       leaf = self.import_image_from_url_settings[field] = {
-        :thumbnail_styles => opts[:thumbnail_styles] || { :medium => '220x220#', :thumb => '48x48#' },
+        :thumbnail_styles => opts[:thumbnail_styles] || { :medium => 220, :thumb => '48x48#' },
         :gravatar => opts[:gravatar].nil? ? false : opts[:gravatar],
         :gravatar_sizes => opts[:gravatar_sizes] || { :medium => 220, :thumb => 48 },
         :url => opts[:url] || '/system/:attachment/:id/:style/:safe_filename',
