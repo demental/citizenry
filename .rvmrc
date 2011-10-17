@@ -1,5 +1,1 @@
-<<<<<<< Updated upstream
-rvm 1.9.2@citizenry --create
-=======
 rvm use 1.8.7@citizenry --create
->>>>>>> Stashed changes
