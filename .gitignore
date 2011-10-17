@@ -5,7 +5,8 @@ log/*.log
 tmp/**/*
 public/stylesheets/compiled/
 config/database.yml
-
+config/settings.yml
+config/s3.yml
 .sass-cache/
 public/system/
 tmp
