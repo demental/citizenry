@@ -1,13 +1,27 @@
 ---
 fr:
+  models:
+    group: Groupe
+    groups: Groupes
+    people: Personnes
+    person: Personne
+    company: Entreprise
+    companies: Entreprises
+    project: Projet
+    projects: Projets
+    resource_link: Ressource
+    resources_links: Ressources
+    
   sign_in: Connexion
   group:
     new:
       title: Nouveau groupe
     button:
       add: + Ajouter un groupe
+      addit: Ajouter ce groupe
       leave: Quitter ce groupe
       join: Rejoindre ce groupe
+      delete: Supprimer!      
     edit:
       title: Modification du groupe
     index:
@@ -19,6 +33,7 @@ fr:
       join: Rejoindre cette entreprise
       leave: Quitter cette entreprise
       add: + Ajouter une entreprise
+      delete: Supprimer!
     new:
       title: Nouvelle entreprise
     edit:
@@ -108,7 +123,7 @@ fr:
     tags: Tags
     employees: Employés
     model:
-      new: Nouveau %{modelname}
+      new: Ajouter %{modelname}
       edit: Modifier %{modelname}
       destroy: Supprimer %{modelname}
   sign_out: Déconnexion
@@ -120,6 +135,7 @@ fr:
       join: Rejoindre ce projet
       leave: Quitter ce projet
       add: + Ajouter un projet
+      delete: Delete!
     new:
       title: Nouveau projet
     edit:
@@ -144,7 +160,7 @@ fr:
     collaborators:
       title: Collaborateurs
     company_list:
-      title: entreprises
+      title: Entreprises
     logo:
       label: Uploader un logo
       hint: De préférence %{size}px de large ou plus
@@ -177,7 +193,7 @@ fr:
       title: Technologies
       hint: Séparés par des virgules SVP
     email_address:
-      label: Adresse email
+      label: Adresse email ou identifiant
     bio:
       label: Bio
     project_list:
@@ -200,7 +216,7 @@ fr:
       company: Entreprise
       group: Groupe
       person: Personne
-      title: Guide collaboratif de la <span class="awesome">fabuleuse communauté technologique</span> de %{organization}
+      title: Un guide collaboratif de la <span class="awesome">fabuleuse communauté technologique</span> de %{organization}
       resource: Ressource
       upcoming_event: Evénement à venir
       on_calagator: " sur Calagator"
@@ -229,6 +245,7 @@ fr:
     button:
       add: + Ajouter une personne
       claim: C'est moi!
+      delete: Delete!
     edit:
       title: Modifier une personne
     list:
@@ -251,9 +268,9 @@ fr:
     are_you_sure: Etes-vous sur?
   user:
     welcome:
-      hi: Bonjour %name!
+      hi: Bonjour %{name}!
       are_you_any: Etes-vous l'une de ces personnes ?
-      already_in_directory: Vous étiez déjà inscrit dans le répertoire! Merci de vérifier vos informations et d'en valier l'exactitude.
+      already_in_directory: Vous étiez déjà inscrit dans le répertoire! Merci de vérifier vos informations et d'en valider l'exactitude.
       review_details: Vérifier vos informations
       add_yourself: Ajoutez-vous à %{organization}
       is_this_you: Serait-ce vous?
@@ -278,3 +295,10 @@ fr:
       link: Ressources
     people:
       link: Personnes
+  formtastic:
+    :yes: 'Oui'
+    :no: 'Non'
+    :create: 'Créer %{model}'
+    :update: 'Modifier %{model}'
+    :submit: 'Envoyer %{model}'
+    :required: 'requis'

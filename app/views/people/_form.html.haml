@@ -1,5 +1,6 @@
 - context ||= :general
 = semantic_form_for(@person, :html => {:multipart => true}) do |f|
+  = display_errors_for @person
   = f.inputs do
     = f.input :name, :label => t('field.name.label')
     -# = f.input :email, :label => t('field.email.label'), :hint => t('field.email.hint')
@@ -9,13 +10,7 @@
     = f.input :bio, :label => t('field.bio.label')
     = f.input :tag_list, :as => :text, :label => t('people.field.tag_list.label'), :hint => t('field.tag_list.hint'), :input_html => {:class => 'tags'}
     = f.input :technology_list, :as => :text, :label => t('field.technology_list.label'), :hint => t('field.technology_list.hint'), :input_html => {:class => 'tags'}
-    = f.inputs :name => t('field.photo.label') do
-      - if photo_url = @person.photo_import_url || (@person.photo.file? && @person.photo.url(:medium))
-        %li
-          = image_tag photo_url, :size => '220'
-
-      = f.input :photo_import_url, :label => t('field.photo_import_url.label')
-      = f.input :photo, :label => t('field.photo_upload.label'), :hint => t('field.logo.hint', :size => 220)
+    = import_image_from_url_tags_for f, @person, :photo
     = f.input :reviewed, :input_html => {:value => true}, :as => :hidden
     - if current_user.admin?
       = f.input :user, :include_blank => '-- '+t('field.user.blankoption')+' --', :label_method => :label_for_admin

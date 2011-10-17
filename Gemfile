@@ -12,8 +12,9 @@ gem 'mysql2', '~> 0.2.0'
 # Uncomment if you're using sqlite
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
-
-gem 'hoptoad_notifier'
+#--[ Storage-external logs ]------------------------------------------------------------------
+gem 'airbrake'
+gem 'aws-s3'
 
 #--[ Utility ]------------------------------------------------------------------
 gem 'httparty', '~> 0.7.4'
@@ -95,7 +96,7 @@ group :test do
 	gem "systemu", "~> 2.4.0"
 	gem "uuid", "~> 2.3.4"
   gem 'steak', '1.1.0'
-  gem 'capybara', '~> 0.4.0'
+  gem 'capybara', '~> 1.1.1'
   # gem 'capybara-envjs'
   gem 'launchy'
   gem 'database_cleaner'

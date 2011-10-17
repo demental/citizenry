@@ -4,13 +4,14 @@ class Project < ActiveRecord::Base
   acts_as_taggable_on :tags, :technologies
   sortable :created_at, :desc
 
-  has_attached_file :logo, :styles => { :medium => '220x220', :thumb => '48x48' }, :url => "/system/:attachment/:id/:style/:safe_filename"
 
   default_serialization_options :include => { :people => {:include => [:tags, :technologies]}, 
                                               :companies => {:include => [:tags, :technologies]},
                                               :groups  => {:include => [:tags, :technologies]},
                                               :tags => {},
                                               :technologies => {}}
+
+  import_image_from_url_as :logo
 
   has_many :project_memberships
   has_many :people, :through => :project_memberships

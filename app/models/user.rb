@@ -35,6 +35,11 @@ class User < ActiveRecord::Base
     self.authentications.via(provider).present?
   end
 
+  def grant!
+    self.admin=true
+    save
+  end  
+
   SAMPLE_USER = {
     :email => "sample@sample.org",
     :admin => true,
@@ -56,6 +61,7 @@ class User < ActiveRecord::Base
     end
     return user
   end
+  
 end
 
 

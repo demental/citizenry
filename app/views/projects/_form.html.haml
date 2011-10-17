@@ -5,9 +5,5 @@
     = f.input :description, :label => t('field.description.label')
     = f.input :tag_list, :as => :text, :label => t('field.tag_list.label'), :hint => t('field.tag_list.hint'), :input_html => {:class => 'tags'}
     = f.input :technology_list, :as => :text, :label => t('field.technology_list.label'), :hint => t('field.technology_list.hint'), :input_html => {:class => 'tags'}
-    - if @project.logo.file?
-      %li
-        .faux_label= t('field.logo.faux_label')
-        = image_tag @project.logo.url(:medium) if @project.logo.present?
-    = f.input :logo, :label => t('field.logo.label'), :hint => t('field.logo.hint', :size =>220)
+    = import_image_from_url_tags_for f, @project, :logo
   = f.buttons

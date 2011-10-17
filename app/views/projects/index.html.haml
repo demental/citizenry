@@ -2,12 +2,12 @@
   .section_header{:class => 'projects'}
     %h1= semantic_pluralize(@projects.respond_to?(:total_entries) ? @projects.total_entries : @projects.size, t('project.index.title.one', :tag => @tag).strip.titleize.html_safe, t('project.index.title.other', :tag => @tag).strip.titleize.html_safe)
     = link_to t('project.button.add'), new_project_path, :class => 'new'
-    #view_options
-      %span.sorting
-        %strong
-          = t('list.sort_by') + ':'
-        = sort_link(:name) + ","
-        = sort_link(:created_at, :label => t('field.created_at.label'), :default_order => :desc, :is_default => :desc) + ","
-        = sort_link(:random)
+  #view_options
+    %span.sorting
+      %strong
+        = t('list.sort_by') + ':'
+      = sort_link(:name) + ","
+      = sort_link(:created_at, :label => t('field.created_at.label'), :default_order => :desc, :is_default => :desc) + ","
+      = sort_link(:random)
 
 = render :partial => 'projects/list', :object => @projects
