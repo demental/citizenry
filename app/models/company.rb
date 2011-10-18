@@ -3,7 +3,6 @@ class Company < ActiveRecord::Base
   has_paper_trail :ignore => [:delta]
   acts_as_taggable_on :tags, :technologies
   sortable :created_at, :desc
-
   default_serialization_options :include => { :projects => {:include => [:tags, :technologies]}, 
                                               :groups => {:include => [:tags, :technologies]},
                                               :employees  => {:include => [:tags, :technologies]},
@@ -11,7 +10,6 @@ class Company < ActiveRecord::Base
                                               :technologies => {}}
 
   import_image_from_url_as :logo
-
   has_many :company_projects
   has_many :projects, :through => :company_projects
 

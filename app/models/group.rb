@@ -4,7 +4,6 @@ class Group < ActiveRecord::Base
   acts_as_taggable_on :tags, :technologies
   sortable :created_at, :desc
 
-
   default_serialization_options :include => { :projects => {:include => [:tags, :technologies]}, 
                                               :companies => {:include => [:tags, :technologies]},
                                               :members  => {:include => [:tags, :technologies]},
@@ -12,7 +11,6 @@ class Group < ActiveRecord::Base
                                               :technologies => {}}
 
   import_image_from_url_as :logo
-
   has_many :group_projects
   has_many :projects, :through => :group_projects
 
