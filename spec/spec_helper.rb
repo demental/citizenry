@@ -34,6 +34,13 @@ RSpec.configure do |config|
 
   require 'fakeweb'
   FakeWeb.allow_net_connect = false
+  definition = Person.attachment_definitions[:attachment]
+  path = "https*://s3-eu-west-1.amazonaws.com/.*"
+  path.gsub!(/:([^\/\.]+)/) do |match|
+      "([^\/\.]+)"
+    end  
+  FakeWeb.register_uri(:put, Regexp.new(path), :body => "OK")
+  
   require 'faker'
   Faker::Config.locale = :en
   
