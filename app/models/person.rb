@@ -17,6 +17,7 @@ class Person < ActiveRecord::Base
 
   import_image_from_url_as :photo, :gravatar => true
 
+
   belongs_to :user
 
   has_many :project_memberships

@@ -46,7 +46,7 @@ module ImportImageFromURL
       # Activate PaperClip attachment on field
       self.send(:has_attached_file, field, :styles => leaf[:thumbnail_styles], 
         :storage => :s3,
-        :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
+        :s3_credentials => "#{Rails.root.to_s}/config/s3.yml",
         :path => "#{self.to_s.downcase}/:attachment/:id/:style.:extension",
         :url  => ":s3_eu_url"        
       )

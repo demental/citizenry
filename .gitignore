@@ -19,4 +19,5 @@ log/searchd.development.pid
 *~
 \#*
 .\#*
-
+app/stylesheets/custom.sass
+app/views/layouts/_custom_css_includes.html.haml
