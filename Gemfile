@@ -14,7 +14,7 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 
 #--[ Storage-external logs ]------------------------------------------------------------------
 gem 'airbrake'
-gem 'aws-s3'
+gem 'aws-s3', :require => "aws/s3"
 
 #--[ Utility ]------------------------------------------------------------------
 gem 'httparty', '~> 0.7.4'
