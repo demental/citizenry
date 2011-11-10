@@ -1,11 +1,68 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 ---
 en:
+  # Common attribute names used on all models:
+  attributes:
+    address: "Address"
+    category: "Category"
+    created_at: "Created at"
+    custom_slug: "URL slug"
+    description: "Description"
+    email: "Email address"
+    location: "Location"
+    logo_content_type: "Logo content-type"
+    logo_url: "Logo URL"
+    mailing_list: "Mailing list"
+    meeting_info: "Meeting information"
+    message: "Message"
+    name: "Name"
+    photo_content_type: "Photo content-type"
+    photo_import_url: "Photo import URL"
+    tag_list: "Tags"
+    technology_list: "Technologies used (langages, frameworks, etc)"
+    twitter: "Twitter"
+    updated_at: "Updated at"
+    url: "Website (URL)"
+
+  activerecord:
+    models:
+      authentication:
+        one: Authentication
+        other: Authentications
+      company:
+        one: Company
+        other: Companies
+      group:
+        one: Group
+        other: Groups
+      person:
+        one: Person
+        other: People
+      project:
+        one: Project
+        other: Projects
+      resource_link:
+        one: Ressource
+        other: Ressources
+      user:
+        one: User
+        other: Users
+    attributes:
+      # Common attribute names provided by `attributes`.
+      person:
+        bio: "Bio"
+        location: "Location"
+    errors:
+      must_start_with_non_digit: "must start with a non-digit"
+
   sign_in: Sign In
   group:
     button:
       join: Join this group
       leave: Leave this group
       add: + Add a Group
+      addit: Add this Group
     new:
       title: New group
     edit:
@@ -30,7 +87,8 @@ en:
   button:
     back: Back
     login_as_sample_user: Login as sample user
-    sign_in: sign_in
+    login_as_this_user: Login as this user
+    sign_in: Sign In
     claim_people: Claim this person
     edit: edit
     delete: Delete
@@ -71,6 +129,11 @@ en:
       title: View as
       grid: Grid
     sort_by: Sort by
+    mentor_filter:
+      title: Show
+      all: All
+      mentors: Mentors
+      mentees: Mentees
   flowery:
     success7: Yeah
     success8: Yay
@@ -103,6 +166,11 @@ en:
       actions: "Please pick a login provider to continue:"
       title: Ack! Something went wrong!
       description: We received an error of some kind back from your login provider. You can try again with the same login provider or choose another service.
+    unknown:
+      title: "Eep! We couldn't find a way to log you in!"
+      explanation: "We tried to automatically pick a login provider for you based on your email address, but didn't find one."
+      instructions: "Please pick a login provider to continue:"
+    user_not_found: "Can't find user record for id: %{user_id}"
   title:
     technologies: Technologies
     tags: Tags
@@ -129,70 +197,51 @@ en:
         one: "%{tag} project<span class='desktop-only'> or product</span>"
         other: "%{tag} projects<span class='desktop-only'> & products</span>"
   field:
-    photo:
-      label: Photo
-    name:
-      label: Name
-    address:
-      label: Address
-      hint: e.g. 115 NW 5th, Portland, OR
-    created_at:
-      label: Date added
-    location:
-      label: Location
-      hint: Neighborhood-level info preferred
-    company_list:
-      title: Companies
     collaborators:
-      title: Collaborators
-    url:
-      label: Website
-      title: Links
-    logo:
-      label: Upload a logo
-      hint: Preferably %{size}px wide or larger
-      faux_label: Current logo
-    photo_import_url:
-      label: "Import a photo from the web…"
-    photo_upload:
-      label: "…or upload one from your computer."
-    tag_list:
-      label: Tags
-      title: Tags
-      hint: Comma separated, please
-    mailing_list:
-      label: Mailing list
-      hint: URL to list information
-    meeting_info:
-      label: Meeting info
-      title: Meeting Info
-    random:
-      label: Random
-    members:
-      title: Members
-    project_list:
-      title: Projects
-    bio:
-      label: Bio
+      title: "Collaborators" # groups#show
+    company_list:
+      title: "Companies" # people#show
+    created_at:
+      label: "Date added" # people#index
     email_address:
-      label: Email address
-    technology_list:
-      label: Technologies used (languages, frameworks, etc)
-      title: Technologies
-      hint: Comma separated, please
-    description:
-      label: Description
-    user:
-      blankoption: none
+      label: "Email address" # authentications#_login
+    example:
+      fragment: "e.g." # site#_custom_slug_field
     group_list:
-      title: Groups
-    email:
-      label: Email address
-      hint: We'll keep this secret
+      title: "Groups" # people#show
+    import_file:
+      label: "…or upload one from your computer." # site#_import_image_from_url_tags
+      hint: "Preferably %{size}px wide or larger" # site#_import_image_from_url_tags
+    import_url:
+      label: "Import a %{thing} from a URL…" # site#_import_image_from_url_tags
+    mailing_list:
+      label: "Mailing list" # groups#show
+    meeting_info:
+      title: "Meeting Info" # groups#show
+    members:
+      title: "Members" # group#show
+    my:
+      fragment: "my" # site#_custom_slug_field
+    name:
+      label: "Name" # people#index
+    project_list:
+      title: "Projects" # people#show
     provider:
       label: Add an account
       add: Add it!
       prompt: "Pick a service…"
+    random:
+      label: "Random" # people#show
+    search:
+      placeholder: "Search…"
+    tag_list:
+      title: "Tags" # people#show
+    technology_list:
+      title: "Technologies" # people#show
+    url:
+      title: "Links" # groups#show
+    user:
+      blankoption: "none" # people#_form
   site:
     err404:
       text: "The record you requested doesn't exist. Are you sure you asked for the right item? Maybe it was deleted? Maybe it was abducted by aliens? So sorry. Here's a creepy baby sloth to make you feel better:"
@@ -218,6 +267,7 @@ en:
     button:
       add: + Add Someone
       claim: That's me!
+      search: Search
     new:
       search_network: Search your networks to add someone
       limit_reset_time: limit resets in %{time}.
@@ -235,6 +285,12 @@ en:
     edit:
       title: Editing person
     field:
+      mentoring:
+        title: "Mentoring" # people#form
+      mentor_topics:
+        title: "Topics I can mentor"
+      mentee_topics:
+        title: "Topics I would like mentoring in"
       tag_list:
         label: Tags (interests, titles, personal descriptors)
     claim:
@@ -244,15 +300,32 @@ en:
       provider_not_logged_in: but you aren't logged in using your %{provider} account.
     show:
       are_you_this_person: Are you %{name}?
+    contact:
+      message_has_been_sent: "Message has been sent to %{name}."
+      message_subject: "%{site_name}: Message from %{from}"
+      message_footer: "This message was sent from %{site_name} at %{site_url}."
+      has_sent_you_a_message: "%{from} has sent you a message"
+      field:
+        from: 
+          label: "From"
+      button:
+        send_message: "Send message"
+
     index:
       title:
         one: "%{tag} person"
         other: "%{tag} people"
+      mentor_title:
+        one: "interested mentor"
+        other: "interested mentors"
+      mentee_title:
+        one: "interested mentee"
+        other: "interested mentees"
   alert:
     are_you_sure: Are you sure?
   user:
     welcome:
-      hi: Hi %name!
+      hi: Hi %{name}!
       are_you_any: Are you any of these people?
       already_in_directory: You were already in the directory! Please review your details and let us know they're right.
       add_yourself: Add yourself to %{organization}
@@ -268,6 +341,12 @@ en:
       what_to_do: What would you like to do?
       title: Hey there!
       linked_accounts: Linked Accounts
+  authentications:
+    title: Authentications
+    provider: Provider
+    name: Name
+    account: Account
+    actions: Actions
   main_nav:
     projects_products:
       link: Projects & Products
@@ -279,3 +358,25 @@ en:
       link: Companies
     people:
       link: People
+  formtastic:
+    labels:
+      person:
+        interested_mentor: "I am interested in mentoring"
+        mentor_topics: "I am interested in mentoring these topics"
+        interested_mentee: "I am interested in being mentored"
+        mentee_topics: "I am interested in being mentored in these topics"
+    hints:
+      tag_list: "Comma separated, please"
+      technology_list: "Comma separated, please"
+      person:
+        location: "Neighborhood-level info preferred"
+        interested_mentor: "Would you like to mentor other people?"
+        mentor_topics: "Comma separated, please"
+        interested_mentee: "Would you like to be mentored?"
+        mentee_topics: "Comma separated, please"
+      user:
+        email: "We'll keep this secret"
+      company:
+        address: "e.g. 115 NW 5th, Portland, OR"
+      group:
+        mailing_list: "URL to list information"

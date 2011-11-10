@@ -15,28 +15,12 @@ class Person < ActiveRecord::Base
                                               :tags => {},
                                               :technologies => {}}
 
-  has_attached_file :photo, 
-                    :styles => { :medium => '220x220#', :thumb => '48x48#' }, 
-                    :storage => :s3,
-                    :s3_credentials => "#{RAILS_ROOT}/config/s3.yml",
-                    :path => ":attachment/:id/:style.:extension",
-                    :url  => ":s3_eu_url"
-  PHOTO_SIZES = {:medium => 220, :thumb => 48} # for gravatar
+  import_image_from_url_as :photo, :gravatar => true
 
-  attr_accessor :photo_import_url
-  before_validation do
-    if self.photo_import_url.present?
-      url = self.photo_import_url.downcase
-      url = "http://#{url}" unless url.include?("http")
-
-      io = open(URI.parse(url))
-      def io.original_filename; base_uri.path.split('/').last; end
-
-      self.photo = io if io.original_filename.present?
-    end
-  end
+  customizable_slug_from :name
 
   belongs_to :user
+  accepts_nested_attributes_for :user, :update_only => true
 
   has_many :project_memberships
   has_many :projects, :through => :project_memberships
@@ -53,11 +37,11 @@ class Person < ActiveRecord::Base
 
   scope :claimed, where('user_id IS NOT null')
   scope :unclaimed, where('user_id IS null')
+  scope :mentors, where('interested_mentor IS true')
+  scope :mentees, where('interested_mentee IS true')
 
-  # returns a photo url, with fallback to a unique-within-epdx generated avatar from gravatar
-  def photo_url(size)
-    size ||= :medium
-    self.photo.file? ? self.photo.url(size) : "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(self.id.to_s)}?d=retro&f=y&s=#{PHOTO_SIZES[size]}"
+  def email
+    read_attribute(:email) || user.try(:email)
   end
 
   private

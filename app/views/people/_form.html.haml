@@ -1,23 +1,26 @@
 - context ||= :general
 = semantic_form_for(@person, :html => {:multipart => true}) do |f|
+  = display_errors_for @person
   = f.inputs do
-    = f.input :name, :label => t('field.name.label')
-    -# = f.input :email, :label => t('field.email.label'), :hint => t('field.email.hint')
-    -# = f.input :twitter
-    = f.input :location, :label => t('field.location.label'), :hint => t('field.location.hint')
-    = f.input :url, :label => t('field.url.label')
-    = f.input :bio, :label => t('field.bio.label')
-    = f.input :tag_list, :as => :text, :label => t('people.field.tag_list.label'), :hint => t('field.tag_list.hint'), :input_html => {:class => 'tags'}
-    = f.input :technology_list, :as => :text, :label => t('field.technology_list.label'), :hint => t('field.technology_list.hint'), :input_html => {:class => 'tags'}
-    = f.inputs :name => t('field.photo.label') do
-      - if photo_url = @person.photo_import_url || (@person.photo.file? && @person.photo.url(:medium))
-        %li
-          = image_tag photo_url, :size => '220'
-
-      = f.input :photo_import_url, :label => t('field.photo_import_url.label')
-      = f.input :photo, :label => t('field.photo_upload.label'), :hint => t('field.logo.hint', :size => 220)
-    = f.input :reviewed, :input_html => {:value => true}, :as => :hidden
-    - if current_user.admin?
-      = f.input :user, :include_blank => '-- '+t('field.user.blankoption')+' --', :label_method => :label_for_admin
-    = hidden_field_tag :form_context, context
+    = f.input :name
+    = render 'site/custom_slug_field', :form => f
+    - unless @person.new_record?
+      = f.semantic_fields_for :user do |u|
+        = u.input :email
+    = f.input :location
+    = f.input :url
+    = f.input :bio
+    = f.input :tag_list, :as => :text, :input_html => {:class => 'tags'}
+    = f.input :technology_list, :as => :text, :input_html => {:class => 'tags'}
+  - if mentoring_enabled?
+    = f.inputs :name => t('people.field.mentoring.title') do
+      = f.input :interested_mentor
+      = f.input :mentor_topics
+      = f.input :interested_mentee
+      = f.input :mentee_topics
+  = import_image_from_url_tags_for f, @person, :photo
+  = f.input :reviewed, :input_html => {:value => true}, :as => :hidden
+  - if current_user.admin?
+    = f.input :user, :include_blank => "-- #{t('field.user.blankoption')} --", :label_method => :label_for_admin
+  = hidden_field_tag :form_context, context
   = f.buttons

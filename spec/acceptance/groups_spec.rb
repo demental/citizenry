@@ -107,7 +107,7 @@ feature "The new group form" do
     # where attributes are defined as the things that are actually stored on the group model, not tags or other bits
     signed_in_as(:user) do
       visit new_group_path
-      @from_factory = FactoryGirl.build(:group)
+      @from_factory = Factory.build(:group)
 
       within 'form.group' do
         fill_in 'group_name', :with => @from_factory.name
@@ -116,7 +116,7 @@ feature "The new group form" do
         fill_in 'group_meeting_info', :with => @from_factory.meeting_info
         fill_in 'group_url', :with => @from_factory.url
         attach_file('group_logo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
 
       page.should have_selector '.single_record.group'
@@ -167,7 +167,7 @@ feature "The group edit form" do
         fill_in 'group_description', :with => @first.description.reverse
         fill_in 'group_meeting_info', :with => @first.meeting_info.reverse
         fill_in 'group_url', :with => @first.url.reverse
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
 
       current_path.should == group_path(@first)
@@ -185,7 +185,7 @@ feature "The group edit form" do
       visit edit_group_path(@first)
       within 'form.group' do
         fill_in 'group_tag_list', :with => "newtag"
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.tags").should have_content "newtag"
 
@@ -196,7 +196,7 @@ feature "The group edit form" do
       # Change 'newtag' to 'newertag'
       within 'form.group' do
         fill_in 'group_tag_list', :with => "newertag"
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.tags").should_not have_content "newtag"
       page.find(".section.tags").should have_content "newertag"
@@ -205,7 +205,7 @@ feature "The group edit form" do
       visit edit_group_path(@first)
       within 'form.group' do
         fill_in 'group_tag_list', :with => ""
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       page.should_not have_selector ".section.tags"
     end
@@ -217,7 +217,7 @@ feature "The group edit form" do
       visit edit_group_path(@first)
       within 'form.group' do
         fill_in 'group_technology_list', :with => "newtechnology"
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.technologies").should have_content "newtechnology"
 
@@ -228,7 +228,7 @@ feature "The group edit form" do
       # Change 'newtechnology' to 'newertechnology'
       within 'form.group' do
         fill_in 'group_technology_list', :with => "newertechnology"
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.technologies").should_not have_content "newtechnology"
       page.find(".section.technologies").should have_content "newertechnology"
@@ -237,7 +237,7 @@ feature "The group edit form" do
       visit edit_group_path(@first)
       within 'form.group' do
         fill_in 'group_technology_list', :with => ""
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       page.should_not have_selector ".section.technologies"
     end
@@ -251,7 +251,7 @@ feature "The group edit form" do
       visit edit_group_path(@first)
       within 'form.group' do
         attach_file('group_logo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       
       page.should have_selector('img.logo')
@@ -259,8 +259,6 @@ feature "The group edit form" do
   end
 
   scenario "should allow a user to import a logo from the web" do
-    pending "not yet implemented"
-
     FakeWeb.register_uri(:get, "http://example.com/photo.png", 
                          :body => File.read(Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png')))
 
@@ -271,7 +269,7 @@ feature "The group edit form" do
       visit edit_group_path(@first)
       within 'form.group' do
         fill_in 'group_logo_import_url', :with => "http://example.com/photo.png"
-        click_button 'group_submit'
+        find("input[name='commit']").click
       end
       
       page.should have_selector('img.logo')

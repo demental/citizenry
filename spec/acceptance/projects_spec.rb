@@ -96,14 +96,14 @@ feature "The new project form" do
     # where attributes are defined as the things that are actually stored on the project model, not tags or other bits
     signed_in_as(:user) do
       visit new_project_path
-      @from_factory = FactoryGirl.build(:project)
+      @from_factory = Factory.build(:project)
 
       within 'form.project' do
         fill_in 'project_name', :with => @from_factory.name
         fill_in 'project_description', :with => @from_factory.description
         fill_in 'project_url', :with => @from_factory.url
         attach_file('project_logo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
 
       page.should have_selector '.single_record.project'
@@ -150,7 +150,7 @@ feature "The project edit form" do
         fill_in 'project_name', :with => @first.name.reverse
         fill_in 'project_description', :with => @first.description.reverse
         fill_in 'project_url', :with => @first.url.reverse
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
 
       current_path.should == project_path(@first)
@@ -166,7 +166,7 @@ feature "The project edit form" do
       visit edit_project_path(@first)
       within 'form.project' do
         fill_in 'project_tag_list', :with => "newtag"
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.tags").should have_content "newtag"
 
@@ -177,7 +177,7 @@ feature "The project edit form" do
       # Change 'newtag' to 'newertag'
       within 'form.project' do
         fill_in 'project_tag_list', :with => "newertag"
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.tags").should_not have_content "newtag"
       page.find(".section.tags").should have_content "newertag"
@@ -186,7 +186,7 @@ feature "The project edit form" do
       visit edit_project_path(@first)
       within 'form.project' do
         fill_in 'project_tag_list', :with => ""
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       page.should_not have_selector ".section.tags"
     end
@@ -198,7 +198,7 @@ feature "The project edit form" do
       visit edit_project_path(@first)
       within 'form.project' do
         fill_in 'project_technology_list', :with => "newtechnology"
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.technologies").should have_content "newtechnology"
 
@@ -209,7 +209,7 @@ feature "The project edit form" do
       # Change 'newtechnology' to 'newertechnology'
       within 'form.project' do
         fill_in 'project_technology_list', :with => "newertechnology"
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.technologies").should_not have_content "newtechnology"
       page.find(".section.technologies").should have_content "newertechnology"
@@ -218,7 +218,7 @@ feature "The project edit form" do
       visit edit_project_path(@first)
       within 'form.project' do
         fill_in 'project_technology_list', :with => ""
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       page.should_not have_selector ".section.technologies"
     end
@@ -232,7 +232,7 @@ feature "The project edit form" do
       visit edit_project_path(@first)
       within 'form.project' do
         attach_file('project_logo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       
       page.should have_selector('img.logo')
@@ -240,8 +240,6 @@ feature "The project edit form" do
   end
 
   scenario "should allow a user to import a logo from the web" do
-    pending "not yet implemented"
-
     FakeWeb.register_uri(:get, "http://example.com/photo.png", 
                          :body => File.read(Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png')))
 
@@ -252,7 +250,7 @@ feature "The project edit form" do
       visit edit_project_path(@first)
       within 'form.project' do
         fill_in 'project_logo_import_url', :with => "http://example.com/photo.png"
-        click_button 'project_submit'
+        find("input[name='commit']").click
       end
       
       page.should have_selector('img.logo')

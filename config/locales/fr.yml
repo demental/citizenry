@@ -1,11 +1,67 @@
 ---
 fr:
+  # Common attribute names used on all models:
+  attributes:
+    address: "Adresse"
+    category: "Catégorie"
+    created_at: "Créé le"
+    custom_slug: "Sobriquet de l'URL" # TODO review translation
+    description: "Description"
+    email: "Adresse email ou identifiant"
+    location: "Adresse"
+    logo_content_type: "Format du logo"
+    logo_url: "URL du logo"
+    mailing_list: "Mailing list"
+    meeting_info: "Infos réunion"
+    # TODO Review translation
+    message: "Message"
+    name: "Nom"
+    photo_content_type: "Format de la photo"
+    photo_import_url: "URL de la photo à importer"
+    tag_list: "Tags"
+    technology_list: "Technologies utilisées (langages, frameworks, etc)"
+    twitter: "Twitter"
+    updated_at: "Modifié le"
+    url: "Site web (URL)"
+
+  activerecord:
+    models:
+      authentication:
+        one: Authentification
+        other: Authentifications
+      company:
+        one: Entreprise
+        other: Entreprises
+      group:
+        one: Groupe
+        other: Groupes
+      person:
+        one: Personne
+        other: Personnes
+      project:
+        one: Projet
+        other: Projets
+      resource_link:
+        one: Ressource
+        other: Ressources
+      user:
+        one: Utilisateur
+        other: Utilisateurs
+    attributes:
+      # Common attribute names provided by `attributes`.
+      person:
+        bio: "Bio"
+        location: "Localisation"
+    errors:
+      must_start_with_non_digit: "doit commencer par un non-chiffres" # TODO review translation
+
   sign_in: Connexion
   group:
     new:
       title: Nouveau groupe
     button:
       add: + Ajouter un groupe
+      addit: Ajouter ce groupe
       leave: Quitter ce groupe
       join: Rejoindre ce groupe
     edit:
@@ -31,6 +87,7 @@ fr:
     claim_people: Réclamer cette personne
     sign_in: Connexion
     login_as_sample_user: Se connecter en tant qu'utilisateur exemple
+    login_as_this_user: "Se connecter en tant que cet utilisateur" # TODO review translation
     back: Retour
     edit: Modifier
     edit_profile: Modifier votre profil
@@ -47,10 +104,6 @@ fr:
       add: + Ajouter un lien
     edit:
       title: Modification de %{name}
-    field:
-      url:
-        label: URL
-        description: Brève description
     index:
       title:
         one: "ressource taggée %{tag}"
@@ -71,6 +124,12 @@ fr:
       title: Affichage
       grid: Grille
     sort_by: Tri par
+    # TODO Review translation
+    mentor_filter:
+      title: Filtrer
+      all: Toutes
+      mentors: Mentors
+      mentees: Les mentorés
   flowery:
     success7: Yeah
     warning1: Attention
@@ -100,15 +159,20 @@ fr:
     error9: Zut
   auth:
     failure:
-      actions: "Choisissez une méthode d'authentification pour continuer:"
+      actions: "Choisissez un service d'authentification pour continuer:"
       title: Oups, ça s'est pas passé comme prévu
       description: Nous avons reçu une erreur de la part de votre service d'authentification. Vous pouvez réessayer avec le même ou en utiliser un autre.
+    unknown:
+      title: "Oups, nous n'avons pas réussi à trouver un moyen de vous connecter!"
+      explanation: "Nous avons essayé de vous connecter en choisissant un service basé sur votre adresse email, mais aucun service ne semble correspondre."
+      instructions: "Merci de choisir un service d'authentification pour continuer:"
+    user_not_found: "Impossible de trouver un enregistrement avec l'id: %{user_id}"
   title:
     technologies: Technologies
     tags: Tags
     employees: Employés
     model:
-      new: Nouveau %{modelname}
+      new: Ajouter %{modelname}
       edit: Modifier %{modelname}
       destroy: Supprimer %{modelname}
   sign_out: Déconnexion
@@ -129,70 +193,52 @@ fr:
         one: "%{tag} projet<span class='desktop-only'> ou produit</span>"
         other: "%{tag} projets<span class='desktop-only'> & produits</span>"
   field:
-    address:
-      label: Adresse
-      hint: ex. 35 rue Gambetta, 31000 Toulouse
-    name:
-      label: Nom
-    photo:
-      label: Photo
-    location:
-      label: Localisation
-      hint: De préférence le nom de votre quartier
-    created_at:
-      label: Date de création
     collaborators:
-      title: Collaborateurs
+      title: "Collaborateurs" # projects#show
     company_list:
-      title: entreprises
-    logo:
-      label: Uploader un logo
-      hint: De préférence %{size}px de large ou plus
-      faux_label: Logo actuel
-    url:
-      label: Site web
-      title: Liens
-    photo_import_url:
-      label: "importer une photo depuis le web…"
-    members:
-      title: Membres
-    random:
-      label: Aléatoire
-    meeting_info:
-      label: Infos réunion
-      title: Infos réunion
-    mailing_list:
-      label: Mailing list
-      hint: URL d'inscription à votre list
-    tag_list:
-      label: Tags
-      title: Tags
-      hint: Séparés par des virgules SVP
-    photo_upload:
-      label: "…ou choisissez sur votre disque dur."
-    description:
-      label: Description
-    technology_list:
-      label: Technologies utilisées (langages, frameworks, etc)
-      title: Technologies
-      hint: Séparés par des virgules SVP
+      title: "Entreprises" # people:show
+    created_at:
+      label: "Date de création" # people#index
     email_address:
-      label: Adresse email
-    bio:
-      label: Bio
+      label: "Adresse email ou identifiant" # authentications#_login
+    example:
+      fragment: "pour exemple" # site#_custom_slug_field # TODO review translation
+    group_list:
+      title: "Groupes" # people#show
+    import_file:
+      label: "…ou choisissez sur votre disque dur." # site#_import_image_from_url_tags
+      hint: "De préférence %{size}px de large ou plus" # site#_import_image_from_url_tags
+    import_url:
+      label: "importer une %{thing} depuis le web…" # site#_import_image_from_url_tags
+    mailing_list:
+      label: "Mailing list" # groups#show
+    meeting_info:
+      title: "Infos réunion" # groups#show
+    members:
+      title: "Membres" # groups#show
+    my:
+      fragment: "mon" # site#_custom_slug_field # TODO review translation
+    name:
+      label: "Nom" # people#index
     project_list:
-      title: Projets
-    user:
-      blankoption: aucun
+      title: "Projets" # people#show
+
     provider:
       label: Service d'authentification
       add: Ajouter!
       prompt: "Choisissez un service…"
-    email:
-      label: Adresse email
-      hint: Elle ne sera pas communiquée
-    group_list:
-      title: Groupes
+    random:
+      label: "Aléatoire" # people#index
+    search:
+      placeholder: "Recherche…" # layout
+    tag_list:
+      title: "Tags" # people#show
+    technology_list:
+      title: "Technologies" # people#show
+    url:
+      title: "Liens" # groups#show
+    user:
+      blankoption: "aucun" # people#_form
   site:
     err404:
       text: "L'enregistrement que vous avez demandé n'existe pas. Etes-vous bien certain de votre demande? Il a été peut-être supprimé? Ou alors enlevé par les extraterrestres? Désolé. Voilà un bébé paresseux tout mimi pour vous consoler:"
@@ -200,7 +246,7 @@ fr:
       company: Entreprise
       group: Groupe
       person: Personne
-      title: Un guide édité par la communauté de la <span class="awesome">fabuleuse communauté technologique</span> de %{organization}
+      title: Un guide collaboratif de la <span class="awesome">fabuleuse communauté technologique</span> de %{organization}
       resource: Ressource
       upcoming_event: Evénement à venir
       on_calagator: " sur Calagator"
@@ -229,6 +275,7 @@ fr:
     button:
       add: + Ajouter une personne
       claim: C'est moi!
+      search: Recherche
     edit:
       title: Modifier une personne
     list:
@@ -238,22 +285,48 @@ fr:
       imported_from: Cette personne a été importée de %{provider}
       sign_in_to_provider: Connectez-vous sur %{provider} pour continuer
       provider_not_logged_in: mais vous n'êtes pas connecté avec votre compte %{provider}.
+    # TODO Review translation
+    contact:
+      message_has_been_sent: "Le message a été envoyé à %{name}."
+      message_subject: "%{site_name}: Un message de %{from}"
+      message_footer: "Ce message a été envoyé à partir %{site_name} au %{site_url}"
+      has_sent_you_a_message: "%{from} vous a envoyé un message"
+      field:
+        from:
+          label: "De"
+      button:
+        send_message: "Envoyer le message"
     field:
+      mentoring:
+        title: "Mentorat" # people#form
+      # TODO Review translation
+      mentor_topics:
+        title: "Sujets pour lesquels je peux être mentor"
+      mentee_topics:
+        title: "Sujets pour lesquels je voudrais être encadrés"
       tag_list:
         label: Tags (centre d'intérêts, particularités, compétences)
     index:
       title:
         one: "personne taggée %{tag}"
         other: "personnes taggées %{tag}"
+      # TODO review translation
+      mentor_title:
+        one: "mentor intéressés"
+        other: "mentors intéressés"
+      # TODO review translation
+      mentee_title:
+        one: "mentoré intéressés"
+        other: "mentorés intéressés"
     show:
       are_you_this_person: Etes-vous %{name}?
   alert:
     are_you_sure: Etes-vous sur?
   user:
     welcome:
-      hi: Bonjour %name!
+      hi: Bonjour %{name}!
       are_you_any: Etes-vous l'une de ces personnes ?
-      already_in_directory: Vous étiez déjà inscrit dans le répertoire! Merci de vérifier vos informations et d'en valier l'exactitude.
+      already_in_directory: Vous étiez déjà inscrit dans le répertoire! Merci de vérifier vos informations et d'en valider l'exactitude.
       review_details: Vérifier vos informations
       add_yourself: Ajoutez-vous à %{organization}
       is_this_you: Serait-ce vous?
@@ -267,6 +340,12 @@ fr:
       what_to_do: Que souhaitez-vous faire?
       title: Bonjour vous!
       linked_accounts: Comptes liés
+  authentications:
+    title: Authentifications
+    provider: Service d'authentification
+    name: Nom
+    account: Compte
+    actions: Actions
   main_nav:
     groups:
       link: Groupes
@@ -278,3 +357,33 @@ fr:
       link: Ressources
     people:
       link: Personnes
+  formtastic:
+    labels:
+      person:
+        # TODO Review translation
+        interested_mentor: "Je suis intéressé par le mentorat"
+        mentor_topics: "Je suis intéressé par ces sujets de mentorat"
+        interested_mentee: "J'aimerais être guidé"
+        mentee_topics: "J'aimerais être guidé dans ces sujets"
+    hints:
+      tag_list: "Séparés par des virgules SVP"
+      technology_list: "Séparés par des virgules SVP"
+      person:
+        location: "De préférence le nom de votre quartier"
+        # TODO Review translation
+        interested_mentor: "Voulez-vous être mentor pour d'autres?"
+        interested_mentee: "Aimeriez-vous être encadré?"
+        mentor_topics: "Séparés par des virgules SVP"
+        mentee_topics: "Séparés par des virgules SVP"
+      user:
+        email: "Utilisés pour s'inscrire; information non divulguée"
+      company:
+        address: "ex. 35 rue Gambetta, 31000 Toulouse"
+      group:
+        mailing_list: "URL d'inscription à votre liste"
+    :yes: 'Oui'
+    :no: 'Non'
+    :create: 'Créer %{model}'
+    :update: 'Modifier %{model}'
+    :submit: 'Envoyer %{model}'
+    :required: 'requis'

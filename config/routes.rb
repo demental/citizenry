@@ -25,10 +25,14 @@ Citizenry::Application.routes.draw do
   resources :people do
     collection do
       get 'grid', :action => :index, :grid => '1'
+      get 'mentors', :action => :index, :mentors => '1'
+      get 'mentees', :action => :index, :mentees => '1'
     end
     member do
       get 'claim'
       get 'photo'
+      get 'contact', :action => :show_contact_form
+      post 'contact', :action => :submit_contact_form
     end
   end
   get '/people/tag/:tag(.:format)' => 'people#tag', :as => 'people_tagged', :constraints => {:tag => /.*/}

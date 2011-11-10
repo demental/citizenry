@@ -9,7 +9,6 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module Citizenry
   class Application < Rails::Application
-  config.paths.app.manifests 'app/manifests', :eager_load => false
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -17,9 +16,12 @@ module Citizenry
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
 
-    # config.eager_load_paths = ['app/models', 'app/controllers', 'app/helpers']
+    config.eager_load_paths = %w[mailers mixins models controllers helpers].map do |name|
+      "#{config.root}/app/#{name}"
+    end
 
-    config.autoload_paths += %W(#{config.root}/lib)
+    $LOAD_PATH << "#{config.root}/lib"
+    config.autoload_paths << "#{config.root}/lib"
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -29,24 +31,17 @@ module Citizenry
     # Activate observers that should always be running.
     # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
-    #
-    # TODO Move this setting to settings.yml
-    config.time_zone = 'Pacific Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    config.i18n.default_locale = :fr
-
-    # JavaScript files you want as :defaults (application.js is always included).
-    # config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+
+    # Enable the asset pipeline
+    # config.assets.enbled = true
+
+    # Version of your assets, change this if you want to expire all your assets
+    # config.assets.version = '1.0'
 
     # Middleware!
     config.middleware.use Rack::JSONP

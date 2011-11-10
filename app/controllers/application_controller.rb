@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def mentoring_enabled?
+    SETTINGS['mentoring']
+  end
+  helper_method :mentoring_enabled?
+
   def random_sort_clause
     seed = session["#{controller_name}_random_sort_seed"] ||= rand(2147483647)
     direction = %w(asc desc).include?(params[:order]) ? params[:order].upcase : ''
@@ -58,7 +63,7 @@ class ApplicationController < ActionController::Base
     if params[:page] == 'all'
       collection.all
     else
-      collection.page(params[:page]).per(params[:per_page] || params[:grid] ? 28 : 30)
+      collection.paginate(:page => params[:page], :per_page => params[:per_page] || params[:grid] ? 28 : 30)
     end
   end
 
@@ -76,25 +81,39 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  # Should a login be allowed as a specific user? Used by the AuthenticationsController and views. Stub this in specs!
+  def self.allow_login_as_specific_user?
+    Rails.env == "development"
+  end
+
+  # Wrapper for ApplicationController::allow_login_as_specific_user? because there's no way to stub it. Integration tests can't get to the instance and RSpec's #any_instance is broken.
+  def allow_login_as_specific_user?
+    return self.class.allow_login_as_specific_user?
+  end
+  helper_method :allow_login_as_specific_user?
+
   def page_title(value=nil)
+    model_name = controller_name.singularize.underscore
+    model_name_singular_human = t("activerecord.models.#{model_name}.one", :default => controller_name.singularize.humanize).downcase
+
     @page_title = value unless value.nil?
 
     if @page_title.nil?
       @page_title ||=
         case action_name.to_sym
         when :index
-          controller_name.titleize
+          t("activerecord.models.#{model_name}.other" , :default => controller_name.humanize.titleize)
         when :new, :create
-          t("title.model.new",:modelname => t('models.' + controller_name.singularize.humanize.downcase, :default => controller_name.singularize.humanize.downcase))
+          t("title.model.new", :modelname => model_name_singular_human)
         when :edit, :update
-          t("title.model.edit",:modelname => t('models.' + controller_name.singularize.humanize.downcase, :default => controller_name.singularize.humanize.downcase))
+          t("title.model.edit",:modelname => model_name_singular_human)
         when :destroy
-          t("title.model.destroy",:modelname => t('models.' + controller_name.singularize.humanize.downcase, :default => controller_name.singularize.humanize.downcase))
+          t("title.model.destroy",:modelname => model_name_singular_human)
         else
           begin
             get_resource_ivar.name
           rescue Exception => e
-            controller_name.singularize.humanize.titleize
+            model_name_singular_human.titleize
           end
         end
     else
@@ -102,4 +121,13 @@ class ApplicationController < ActionController::Base
     end
   end
   helper_method :page_title
+
+  # Preserve old links to resources by redirecting to their current location.
+  #
+  # The "friendly_id" slug history tracks the resource's slug over time. If a resource is available under a newer slug name, redirect its "show" action to the current name. E.g. "/request/old-name" will redirect to "/request/new-name" if the slug was changed from "old-name" to "new-name".
+  def redirect_historical_slugs
+    if self.action_name == "show" && request.path != resource_path(resource)
+      return redirect_to resource, :status => :moved_permanently
+    end
+  end
 end

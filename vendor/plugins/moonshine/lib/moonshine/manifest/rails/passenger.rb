@@ -1,7 +1,4 @@
 module Moonshine::Manifest::Rails::Passenger
-
-  BLESSED_VERSION = '3.0.9'
-
   # Install the passenger gem
   def passenger_gem
     configure(:passenger => {})
@@ -9,15 +6,9 @@ module Moonshine::Manifest::Rails::Passenger
       package "passenger",
         :ensure => configuration[:passenger][:version],
         :provider => :gem
-    elsif configuration[:passenger][:version].nil? || configuration[:passenger][:version] == :latest
+    else
       package "passenger",
-        :ensure => BLESSED_VERSION,
-        :provider => :gem,
-        :require => [ package('libcurl4-openssl-dev') ]
-      package 'libcurl4-openssl-dev', :ensure => :installed
-    elsif configuration[:passenger][:version]
-      package "passenger",
-        :ensure => (configuration[:passenger][:version]),
+        :ensure => (configuration[:passenger][:version] || '3.0.4'),
         :provider => :gem,
         :require => [ package('libcurl4-openssl-dev') ]
       package 'libcurl4-openssl-dev', :ensure => :installed
@@ -73,9 +64,7 @@ module Moonshine::Manifest::Rails::Passenger
       :notify => service("apache2"),
       :alias => "passenger_conf"
 
-    a2enmod 'headers', :notify => service('apache2')
-
-    a2enmod 'passenger', :require => [exec("build_passenger"), file("passenger_conf"), file("passenger_load"), exec('a2enmod headers')]
+    a2enmod 'passenger', :require => [exec("build_passenger"), file("passenger_conf"), file("passenger_load")]
   end
 
   # Creates and enables a vhost configuration named after your application.
@@ -94,11 +83,14 @@ module Moonshine::Manifest::Rails::Passenger
 
   def passenger_configure_gem_path
     configure(:passenger => {})
-    if configuration[:passenger][:version].nil? || configuration[:passenger][:version] == :latest
-      configure(:passenger => { :path => "#{Gem.dir}/gems/passenger-#{BLESSED_VERSION}" })
-    elsif configuration[:passenger][:version]
-      configure(:passenger => { :path => "#{Gem.dir}/gems/passenger-#{configuration[:passenger][:version]}" })
+    return configuration[:passenger][:path] if configuration[:passenger][:path]
+    version = begin
+      configuration[:passenger][:version] || Gem::SourceIndex.from_installed_gems.find_name("passenger").last.version.to_s
+    rescue
+      `gem install passenger --no-ri --no-rdoc`
+      `passenger-config --version`.chomp
     end
+    configure(:passenger => { :path => "#{Gem.dir}/gems/passenger-#{version}" })
   end
 
 private

@@ -182,7 +182,7 @@ feature "The person edit form" do
         fill_in 'person_location', :with => @person.location.reverse
         fill_in 'person_bio', :with => @person.bio.reverse
         fill_in 'person_url', :with => @person.url.reverse
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
 
       current_path.should == person_path(@person)
@@ -190,6 +190,24 @@ feature "The person edit form" do
       page.should have_content @person.location.reverse
       page.should have_content @person.bio.reverse
       page.should have_content @person.url.reverse
+    end
+  end
+
+  scenario "should allow editing of a user's email address" do
+    signed_in_as(:user_with_person) do
+      @person = @user.person
+
+      visit edit_person_path(@person)
+
+      within('form.person') do
+        fill_in 'person_user_attributes_email', :with => "unique_email@example.com"
+        find("input[name='commit']").click
+      end
+
+      current_path.should == person_path(@person)
+      visit edit_person_path(@person)
+
+      find("#person_user_attributes_email").value.should == "unique_email@example.com"
     end
   end
 
@@ -201,7 +219,7 @@ feature "The person edit form" do
       visit edit_person_path(@person)
       within 'form.person' do
         fill_in 'person_tag_list', :with => "newtag"
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.tags").should have_content "newtag"
 
@@ -212,7 +230,7 @@ feature "The person edit form" do
       # Change 'newtag' to 'newertag'
       within 'form.person' do
         fill_in 'person_tag_list', :with => "newertag"
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.tags").should_not have_content "newtag"
       page.find(".section.tags").should have_content "newertag"
@@ -221,7 +239,7 @@ feature "The person edit form" do
       visit edit_person_path(@person)
       within 'form.person' do
         fill_in 'person_tag_list', :with => ""
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       page.should_not have_selector ".section.tags"
     end
@@ -235,7 +253,7 @@ feature "The person edit form" do
       visit edit_person_path(@person)
       within 'form.person' do
         fill_in 'person_technology_list', :with => "newtechnology"
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.technologies").should have_content "newtechnology"
 
@@ -246,7 +264,7 @@ feature "The person edit form" do
       # Change 'newtechnology' to 'newertechnology'
       within 'form.person' do
         fill_in 'person_technology_list', :with => "newertechnology"
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       page.find(".section.technologies").should_not have_content "newtechnology"
       page.find(".section.technologies").should have_content "newertechnology"
@@ -255,9 +273,48 @@ feature "The person edit form" do
       visit edit_person_path(@person)
       within 'form.person' do
         fill_in 'person_technology_list', :with => ""
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       page.should_not have_selector ".section.technologies"
+    end
+  end
+
+  scenario "show allow editing of slug" do
+    signed_in_as(:user_with_person) do
+      person = @user.person
+
+      visit edit_person_path(person)
+      within "form.person" do
+        fill_in "person_custom_slug", :with => "Foo Bar"
+        find("input[name='commit']").click
+      end
+
+      current_path.should == person_path("foo-bar")
+
+      person.reload
+      person.slug.should == "foo-bar"
+    end
+  end
+
+  scenario "should not allow duplicate slug" do
+    Factory.create(:person, :name => "Foo Bar", :custom_slug => "foo-bar")
+
+    signed_in_as(:user_with_person) do
+      person = @user.person
+      original_slug = person.slug
+
+      visit edit_person_path(person)
+      within "form.person" do
+        fill_in "person_custom_slug", :with => "Foo Bar"
+        find("input[name='commit']").click
+      end
+
+      page.should have_selector(".record_errors")
+      page.should have_selector("#person_custom_slug_input .inline-errors")
+      current_path.should == person_path(original_slug)
+
+      person.reload
+      person.slug.should_not == "foo-bar"
     end
   end
 
@@ -271,7 +328,7 @@ feature "The person edit form" do
       visit edit_person_path(@person)
       within 'form.person' do
         attach_file('person_photo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       
       page.should have_selector('img.person_photo')
@@ -291,7 +348,7 @@ feature "The person edit form" do
       visit edit_person_path(@person)
       within 'form.person' do
         fill_in 'person_photo_import_url', :with => "http://example.com/photo.png"
-        click_button 'person_submit'
+        find("input[name='commit']").click
       end
       
       page.should have_selector('img.person_photo')
@@ -299,3 +356,41 @@ feature "The person edit form" do
   end
 end
 
+feature "The person contact form" do
+  background do
+    setup_people
+  end
+
+  scenario "should not be accessible by anonymous users" do
+    visit contact_person_path(@first_person)
+
+    current_path.should == new_user_session_path
+    page.should have_content I18n.t('sign_in')
+  end
+
+  scenario "should be accessible by users with or without person" do
+    signed_in_as(:user_with_person) do
+      visit contact_person_path(@first_person)
+      current_path.should == contact_person_path(@first_person)
+    end
+
+    signed_in_as(:user) do
+      visit contact_person_path(@first_person)
+      current_path.should == contact_person_path(@first_person)
+    end
+  end
+
+  scenario "should be able contact person" do
+    signed_in_as(:user) do
+      visit contact_person_path(@first_person)
+
+      within 'form.contact_form' do
+        fill_in 'contact_form_message', :with => 'Test message.'
+        find("input[name='commit']").click
+      end
+
+      page.should have_selector('.notice')
+    end
+  end
+
+end

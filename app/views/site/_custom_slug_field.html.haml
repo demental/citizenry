@@ -1,0 +1,10 @@
+-# Display the form field for a custom slug.
+-#
+-# ARGUMENTS:
+-# * form: The Rails form instance.
+- hint = "%{example} %{url}/<em><b>%{my}_%{model}</b></em>" % { |
+  :example => t('field.example.fragment'),                      |
+  :url => "#{SETTINGS.organization.url}/#{controller_path}",    |
+  :my => t('field.my.fragment'),                                |
+  :model => form.object.class.model_name.human.underscore }
+= form.input :custom_slug, :hint => hint.html_safe
