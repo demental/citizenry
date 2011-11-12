@@ -27,7 +27,7 @@
     = render :partial => 'layouts/custom_css_includes', :locals => {:force_mobile => force_mobile} rescue nil
     /[if lt IE 9]
       = stylesheet_link_tag('compiled/desktop', :media => 'all')
-
+    = auto_discovery_link_tag
     = javascript_include_tag 'lib/jquery-1.5.js',
                              'lib/jquery.hotkeys.js',
                              'lib/jquery.placeholder.min.js',
