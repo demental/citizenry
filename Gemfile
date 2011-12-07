@@ -64,6 +64,7 @@ gem "compass", "~> 0.11.5"
 gem "compass-960-plugin", "~> 0.10.4", :require => 'ninesixty'
 gem 'jquery-rails', '>= 1.0.14'
 gem 'formtastic', '~>1.2.4'
+gem 'rdiscount'
 
 #--[ Controller ]---------------------------------------------------------------
 gem 'will_paginate', '~> 3.0.1'
