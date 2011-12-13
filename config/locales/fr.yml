@@ -176,7 +176,7 @@ fr:
       edit: Modifier %{modelname}
       destroy: Supprimer %{modelname}
   sign_out: Déconnexion
-  sign_in_join: Connexion
+  sign_in_join: S'inscrire / Se connecter
   pager:
     show_all: Tout montrer
   project:
