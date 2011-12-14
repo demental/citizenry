@@ -78,7 +78,7 @@ fr:
     new:
       title: Nouvelle entreprise
     edit:
-      title: Modification de la entreprise
+      title: Modification de l'entreprise
     index:
       title:
         one: "entreprise taggée %{tag}"
