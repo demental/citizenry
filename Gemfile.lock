@@ -15,7 +15,7 @@ GIT
       httparty (>= 0.4.3)
 
 GIT
-  remote: git://github.com/reidab/redfinger.git
+  remote: https://github.com/reidab/redfinger.git
   revision: 46be5f9695be4b3e2b38b21603570dfaa4a5aeb4
   specs:
     redfinger (0.1.0)
