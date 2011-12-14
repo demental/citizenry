@@ -36,6 +36,15 @@ class User < ActiveRecord::Base
     self.authentications.via(provider).present?
   end
 
+  def grant!
+    self.admin=1
+    save
+  end  
+  def ungrant!
+    self.admin=0
+    save
+  end  
+  
   SAMPLE_USER = {
     :email => "sample@sample.org",
     :admin => true,
@@ -44,7 +53,7 @@ class User < ActiveRecord::Base
   def self.find_sample
     return self.where(:email => User::SAMPLE_USER[:email]).first
   end
-
+  
   def self.find_or_create_sample(create_backreference=true)
     user = self.find_sample
     unless user
