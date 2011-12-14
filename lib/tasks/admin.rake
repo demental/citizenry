@@ -10,7 +10,7 @@ namespace :user do
     end
     private
     def find_user(name)
-      puts email
+      puts name
       user = User.find_by_name(name)
       puts('Not found') or exit(2) unless user
       user
