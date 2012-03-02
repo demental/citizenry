@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 
   has_paper_trail :ignore => [:remember_token, :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_ip, :last_sign_in_ip, :updated_at]
 
-  has_one :person
+  has_one :person, :dependent => :destroy
   has_many :authentications, :dependent => :destroy do
     def info_get(key)
       info_with_key = self.map(&:info).compact.detect{|info| info[key].present? }
