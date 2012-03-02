@@ -9,7 +9,7 @@ namespace :user do
       find_user(args.email).grant!
     end
     desc 'Destroys the user and the person attached to it'
-    task :ungrant, [:email] => :environment do |t,args|
+    task :destroy, [:email] => :environment do |t,args|
       find_user(args.email).destroy!
     end
     
