@@ -10,7 +10,7 @@ namespace :user do
     end
     desc 'Destroys the user and the person attached to it'
     task :destroy, [:email] => :environment do |t,args|
-      find_user(args.email).destroy!
+      find_user(args.email).destroy
     end
     
     private
