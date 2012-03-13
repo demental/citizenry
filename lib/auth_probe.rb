@@ -92,6 +92,14 @@ class AuthProbe
         HTTParty.get("http://github.com/api/v2/json/user/email/#{CGI::escape email}").parsed_response.has_key?("user") ? [:github, nil] : nil
       end
     end
+
+    module Viadeo
+      def self.discover(email)
+        # TODO
+        nil
+      end
+    end
+
   end
 
    STRATEGIES = [Strategy::Twitter,
@@ -99,5 +107,7 @@ class AuthProbe
                 Strategy::HostOpenID,
                 Strategy::GoogleAppsMX,
                 Strategy::YahooMailMX,
-                Strategy::GitHub]
+                Strategy::GitHub,
+                Strategy::Viadeo,
+              ]
 end
