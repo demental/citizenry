@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe SiteController do
-  render_views
   before { DatabaseCleaner.clean }
 
   describe '#search' do
