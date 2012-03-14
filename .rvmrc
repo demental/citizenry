@@ -1,1 +1,1 @@
-rvm use 1.9.3@citizenry --create
+rvm use 1.9.3@citizenry_omniauth1 --create
