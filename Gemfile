@@ -128,3 +128,4 @@ end
 #--[ Storage-external logs ]------------------------------------------------------------------
 gem 'airbrake'
 gem 'aws-s3'
+gem 'aws-sdk'
