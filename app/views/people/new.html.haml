@@ -23,7 +23,7 @@
           = submit_tag(t('people.button.search'))
         - if @rate_limit_status.present?
           = t('people.new.calls_remaining', :count => @rate_limit_status.remaining_hits.to_i)
-          = t('people.new.limit_reset_time', :time => distance_of_time_in_words(Time.now, Time.parse(@rate_limit_status.reset_time)))
+          = t('people.new.limit_reset_time', :time => distance_of_time_in_words(Time.now, @rate_limit_status.reset_time))
 
 
       - if @found_people.present?
