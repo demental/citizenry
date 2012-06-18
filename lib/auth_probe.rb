@@ -101,13 +101,13 @@ class AuthProbe
     end
 
   end
-
+  
    STRATEGIES = [Strategy::Twitter,
                 Strategy::WebFinger,
                 Strategy::HostOpenID,
                 Strategy::GoogleAppsMX,
                 Strategy::YahooMailMX,
-                Strategy::GitHub,
-                Strategy::Viadeo,
+#                Strategy::GitHub,
+#                Strategy::Viadeo,
               ]
 end
