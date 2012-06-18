@@ -202,7 +202,7 @@ fr:
     email_address:
       label: "Adresse email ou identifiant" # authentications#_login
     example:
-      fragment: "pour exemple" # site#_custom_slug_field # TODO review translation
+      fragment: "par exemple" # site#_custom_slug_field # TODO review translation
     group_list:
       title: "Groupes" # people#show
     import_file:
@@ -217,7 +217,7 @@ fr:
     members:
       title: "Membres" # groups#show
     my:
-      fragment: "mon" # site#_custom_slug_field # TODO review translation
+      fragment: "mon_ou_ma" # site#_custom_slug_field # TODO review translation
     name:
       label: "Nom" # people#index
     project_list:
