@@ -10,4 +10,4 @@
     = f.commit_button
     - unless @resource_link.new_record?
       %li
-        = link_to t('button.delete'), resource_link_path(@resource), :confirm => t('alert.are_you_sure'), :method => :delete, :class => 'delete'
+        = link_to t('button.delete'), resource_link_path(@resource_link), :confirm => t('alert.are_you_sure'), :method => :delete, :class => 'delete'
