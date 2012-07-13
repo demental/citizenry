@@ -10,15 +10,15 @@ describe SiteController do
     end
 
     it 'redirects straight to result detail if only one result' do
-      matchingperson = Factory :person, :name => 'MatchingName'
+      matchingperson = FactoryGirl.create(:person, name: 'MatchingName')
       get 'search', {:query => 'MatchingName'}
       response.should redirect_to matchingperson
     end  
 
     it 'shows only relevant results' do
-      10.times {Factory :person}
-      matchingperson = Factory :person, :name => 'MatchingName'
-      matchingperson2 = Factory :person, :name => 'MatchingName2'      
+      2.times { FactoryGirl.create(:person) }
+      matchingperson = FactoryGirl.create(:person, name: 'MatchingName')
+      matchingperson2 = FactoryGirl.create(:person, name: 'MatchingName2')
 
       get 'search', {:query => 'MatchingName'}
 
