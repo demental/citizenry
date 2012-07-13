@@ -15,6 +15,7 @@ class Project < ActiveRecord::Base
   import_image_from_url_as :logo
 
   customizable_slug_from :name
+
   has_many :project_memberships
   has_many :people, :through => :project_memberships
 

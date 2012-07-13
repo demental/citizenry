@@ -414,7 +414,6 @@ module Moonshine
             ].join(' && ')
           end
 
-
           task :install_rubygems do
             version = fetch(:rubygems_version, '1.4.2')
             run [

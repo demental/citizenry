@@ -52,4 +52,5 @@ describe "MoonshinePluginGenerator" do
     def spec_helper_path
       plugin_path + 'spec/spec_helper.rb'
     end
+
 end
