@@ -7,16 +7,16 @@
 
 // More advanced features are added for browsers that support them in level2 and level3
 
-@import config
+@import lib/config
 
-@import mixins
+@import lib/mixins
 
-@import reset
-@import basic_elements
-@import type
-@import forms
+@import lib/reset
+@import lib/basic_elements
+@import lib/type
+@import lib/forms
 
-@import utility
+@import lib/utility
 
 .desktop-only
   display: none
@@ -576,7 +576,7 @@ body.events #content
   .update
     .event
       background: $resources_color
-  
+
 
 #footer
   margin-top: 3em
@@ -591,8 +591,8 @@ body.events #content
     background-image: image_url('authbuttons/google_32.png')
   &.facebook
     background-image: image_url('authbuttons/facebook_32.png')
-  &.linkedin
-    background-image: image_url('authbuttons/linkedin_32.png')
+  &.linked_in
+    background-image: image_url('authbuttons/linked_in_32.png')
   &.github
     background-image: image_url('authbuttons/github_32.png')
   &.yahoo
