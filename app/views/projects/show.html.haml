@@ -9,7 +9,7 @@
 
   .record_actions
     = link_to t('button.edit'), edit_project_path(@project), :class => 'edit'
-    = link_to t('button.delete'), project_path(@project), :confirm => t('alert.are_you_sure'), :method => :delete, :class => 'delete'
+    = link_to t('button.delete'), project_path(@project), data: { confirm: t('alert.are_you_sure') }, :method => :delete, :class => 'delete'
 
   - if @project.tags.present?
     .section.tags

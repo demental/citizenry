@@ -11,7 +11,7 @@
 
   .record_actions
     = link_to t('button.edit'), edit_company_path(@company), :class => 'edit'
-    = link_to t('button.delete'), company_path(@company), :confirm => t('alert.are_you_sure'), :method => :delete, :class => 'delete'
+    = link_to t('button.delete'), company_path(@company), , data: { confirm: t('alert.are_you_sure') }, :method => :delete, :class => 'delete'
 
   - if @company.tags.present?
     .section.tags
