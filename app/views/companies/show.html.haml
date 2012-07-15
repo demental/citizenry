@@ -21,7 +21,7 @@
   - if @company.technologies.present?
     .section.technologies
       %h2= t('title.technologies')
-      = render 'tags/list', object: @company.technologies, locals: { type: :company }
+      = tag_list @company.technologies, :company
 
   .section.members
     %h2= t('title.employees')
@@ -30,4 +30,4 @@
       = link_to t('company.button.leave'), leave_company_path(@company), class: 'leave', method: :post
       - else
         = link_to t('company.button.join'), join_company_path(@company), class: 'join', method: :post
-    = render 'people/list', object: @company.employees, locals: { context: :member_list }
+    = render @company.employees, context: :member_list

@@ -15,7 +15,7 @@ feature "The company index" do
 
   scenario "should list companies" do
     visit companies_path
-    page.should have_css "ul.companies.resource_list li", :count => 3
+    page.should have_css "ul.resource_list li.company", count: 3
     @companies.each do |company|
       page.should have_content company.name
     end
@@ -176,8 +176,8 @@ feature "The company edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_company_path(@first)
-      page.find("#company_tag_list").value.should == "newtag"
-      
+      page.find("#company_tag_list").value.should =~ /newtag/
+
       # Change 'newtag' to 'newertag'
       within 'form.company' do
         fill_in 'company_tag_list', :with => "newertag"
@@ -208,8 +208,8 @@ feature "The company edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_company_path(@first)
-      page.find("#company_technology_list").value.should == "newtechnology"
-      
+      page.find("#company_technology_list").value.should =~ /newtechnology/
+
       # Change 'newtechnology' to 'newertechnology'
       within 'form.company' do
         fill_in 'company_technology_list', :with => "newertechnology"
@@ -238,13 +238,13 @@ feature "The company edit form" do
         attach_file('company_logo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.logo')
     end
   end
 
   scenario "should allow a user to import a logo from the web" do
-    FakeWeb.register_uri(:get, "http://example.com/photo.png", 
+    FakeWeb.register_uri(:get, "http://example.com/photo.png",
                          :body => File.read(Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png')))
 
     signed_in_as(:user) do
@@ -256,7 +256,7 @@ feature "The company edit form" do
         fill_in 'company_logo_import_url', :with => "http://example.com/photo.png"
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.logo')
     end
   end
