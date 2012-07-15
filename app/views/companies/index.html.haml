@@ -10,4 +10,5 @@
         = sort_link(:created_at, :label => t('field.created_at.label'), :default_order => :desc, :is_default => :desc) + ","
         = sort_link(:random, :label => t('field.random.label'))
 
-= render :partial => 'companies/list', :object => @companies
+%ul.resource_list
+  = render @companies

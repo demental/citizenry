@@ -1,4 +1,4 @@
-.single_record.company{:class => @company.logo.file? ? 'with_image' : 'without_image'}
+.single_record.company{class: @company.logo.file? ? 'with_image' : 'without_image'}
   = image_tag(@company.logo.url(:medium), :class => 'logo') if @company.logo.file?
   %h1= @company.name
   - if @company.address.present?
@@ -7,27 +7,27 @@
     .description= simple_format @company.description
   .links
     - if @company.url.present?
-      =link_to normalize_url(@company.url), normalize_url(@company.url), :class => 'url'
+      =link_to normalize_url(@company.url), normalize_url(@company.url), class: 'url'
 
   .record_actions
-    = link_to t('button.edit'), edit_company_path(@company), :class => 'edit'
-    = link_to t('button.delete'), company_path(@company), , data: { confirm: t('alert.are_you_sure') }, :method => :delete, :class => 'delete'
+    = link_to t('button.edit'), edit_company_path(@company), class: 'edit'
+    = link_to t('button.delete'), company_path(@company), data: { confirm: t('alert.are_you_sure') }, method: :delete, class: 'delete'
 
   - if @company.tags.present?
     .section.tags
       %h2= t('title.tags')
-      = render :partial => 'tags/list', :object => @company.tags, :locals => {:type => :company}
+      = tag_list @company.tags, :company
 
   - if @company.technologies.present?
     .section.technologies
       %h2= t('title.technologies')
-      = render :partial => 'tags/list', :object => @company.technologies, :locals => {:type => :company}
+      = render 'tags/list', object: @company.technologies, locals: { type: :company }
 
   .section.members
     %h2= t('title.employees')
     - if current_person
       - if @company.employees.include?(current_person)
-        = link_to t('company.button.leave'), leave_company_path(@company), :class => 'leave', :method => :post
+      = link_to t('company.button.leave'), leave_company_path(@company), class: 'leave', method: :post
       - else
-        = link_to t('company.button.join'), join_company_path(@company), :class => 'join', :method => :post
-    = render :partial => 'people/list', :object => @company.employees, :locals => {:context => :member_list}
+        = link_to t('company.button.join'), join_company_path(@company), class: 'join', method: :post
+    = render 'people/list', object: @company.employees, locals: { context: :member_list }
