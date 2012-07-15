@@ -78,6 +78,8 @@ gem 'rdiscount'
 
 group :assets do
   gem 'sass-rails'
+  gem 'compass-rails'
+  gem 'compass-960-plugin', require: 'ninesixty'
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-rails'
