@@ -1,12 +1,12 @@
-.single_record.person{:class => @person.photo.file? ? 'with_image' : 'without_image'}
-  = link_to image_tag(@person.photo.url(:medium), :class => 'person_photo'), photo_person_path(@person) if @person.photo.file?
+.single_record.person{ class: @person.photo.file? ? 'with_image' : 'without_image' }
+  = link_to image_tag(@person.photo.url(:medium), class: 'person_photo'), photo_person_path(@person) if @person.photo.file?
 
   %h1= @person.name
 
   - if current_user && @person.user.blank? && current_person.nil?
     #claim_user
-      %p= t('people.show.are_you_this_person', :name => @person.name)
-      = link_to t('button.claim_people'), claim_person_path(@person), :class => 'claim'
+      %p= t('people.show.are_you_this_person', name: @person.name)
+      = link_to t('button.claim_people'), claim_person_path(@person), class: 'claim'
       -# TODO: Report duplicate if current_user.person.present?
 
   - if @person.location.present?
@@ -15,34 +15,33 @@
     .bio= simple_format @person.bio
   .links
     - if user_signed_in? && @person.user != current_user && current_user.email.present? && @person.email.present?
-      = link_to(t('people.contact.button.send_message'), contact_person_path(@person), :class => 'url')
-    - if @person.url.present?
-      = link_to( normalize_url(@person.url), normalize_url(@person.url), :class => 'url') if @person.url.present?
+      = link_to(t('people.contact.button.send_message'), contact_person_path(@person), class: 'url')
+    = link_to( normalize_url(@person.url), normalize_url(@person.url), class: 'url') if @person.url.present?
 
   - if @person.tags.present?
     .section.tags
       %h2= t('field.tag_list.title')
-      = render :partial => 'tags/list', :object => @person.tags, :locals => {:type => :person}
+      = tag_list @person.tags, :person
 
   - if @person.technologies.present?
     .section.technologies
       %h2= t('field.technology_list.title')
-      = render :partial => 'tags/list', :object => @person.technologies, :locals => {:type => :person}
+      = tag_list @person.technologies, :person
 
   - if @person.companies.present?
     .section.companies
       %h2= t('field.company_list.title')
-      = render :partial => 'companies/list', :object => @person.companies
+      = render @person.companies
 
   - if @person.groups.present?
     .section.groups
       %h2= t('field.group_list.title')
-      = render :partial => 'groups/list', :object => @person.groups
+      = render @person.groups
 
   - if @person.projects.present?
     .section.projects
       %h2= t('field.project_list.title')
-      = render :partial => 'projects/list', :object => @person.projects
+      = render @person.projects
 
   - if mentoring_enabled?
 
@@ -58,11 +57,11 @@
 
   .record_actions
     - if display_record_controls?(@person)
-      = link_to t('button.edit'), edit_person_path(@person), :class => 'edit'
-      = link_to t('button.delete'), person_path(@person), :confirm => t('alert.are_you_sure'), :method => :delete, :class => 'delete'
+      = link_to t('button.edit'), edit_person_path(@person), class: 'edit'
+      = link_to t('button.delete'), person_path(@person), data: { confirm: t('alert.are_you_sure') }, method: :delete, class: 'delete'
       - if display_login_as_control?(@person)
         <br />
     - if display_login_as_control?(@person)
       %p.development_only.login_as_this_user
         DEV:
-        = link_to t('button.login_as_this_user'), authentications_path(:user_id => @person.user.id), :method => :post
+        = link_to t('button.login_as_this_user'), authentications_path( user_id: @person.user.id ), method: :post
