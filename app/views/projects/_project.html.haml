@@ -1,0 +1,11 @@
+- context ||= :general
+%li.project
+  - if project.logo.file?
+    = link_to image_tag(project.logo.url(:thumb)), project, class: 'avatar'
+  %h3
+    =link_to project.name, project
+  - if project.twitter.present?
+    %span.twitter_link
+      = t('people.list.on_twitter', :link => twitter_link(project.twitter)).html_safe
+  -#%p.location= person['location']
+  %p.description= truncate(strip_links(project.description), :length => 350)

@@ -13,7 +13,7 @@ describe SiteController do
       matchingperson = FactoryGirl.create(:person, name: 'MatchingName')
       get 'search', {:query => 'MatchingName'}
       response.should redirect_to matchingperson
-    end  
+    end
 
     it 'shows only relevant results' do
       2.times { FactoryGirl.create(:person) }
@@ -24,10 +24,7 @@ describe SiteController do
 
       assigns(:results).length.should eql 2
       assigns(:results).include?(matchingperson).should be_true
-      assigns(:results).include?(matchingperson2).should be_true             
-    end  
-
-  end    
-
-
+      assigns(:results).include?(matchingperson2).should be_true
+    end
+  end
 end

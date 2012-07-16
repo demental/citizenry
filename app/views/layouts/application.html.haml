@@ -8,39 +8,10 @@
       = t('layout.title', {:name => SETTINGS['organization']['name'], :city => SETTINGS['organization']['city']})
     %meta{:name=>"viewport", :content=>"width=device-width, user-scalable=no"}
     %link{:rel => 'search', :type => 'application/opensearchdescription+xml', :href => '/opensearch.xml', :title => SETTINGS['organization']['name']}
-    - force_mobile = params[:force_mobile].present?
-    -#
-      Level 1: All browsers, evar.
-      Provides basic mobile layout
-    = stylesheet_link_tag 'compiled/basic_mobile', :media => 'all'
+    = stylesheet_link_tag 'application', media: 'all'
 
-    -#
-      Level 2: Nicer mobile browsers
-      Narrow devices that support @media queries get this one
-    = stylesheet_link_tag('compiled/advanced_mobile',
-        :media => force_mobile ? 'all' : 'only screen and (max-device-width: 960px)')
-
-    -# Level 3: Desktop browsers only
-
-    = stylesheet_link_tag('compiled/desktop',
-        :media => force_mobile ? 'none' : 'all and (min-device-width: 961px)')
-    = render :partial => 'layouts/custom_css_includes', :locals => {:force_mobile => force_mobile} rescue nil
-    /[if lt IE 9]
-      = stylesheet_link_tag('compiled/desktop', :media => 'all')
-
-    = javascript_include_tag 'lib/jquery-1.5.js',
-                             'lib/jquery.hotkeys.js',
-                             'lib/jquery.placeholder.min.js',
-                             'lib/json2.js',
-                             'lib/underscore.js',
-                             'lib/backbone.js',
-                             'citizenry.js',
-                             'rails'
-    %script
-      $(function() { $('#flash .message.success, #flash .message.notice').delay(4000).hide('blind'); });
 
     = csrf_meta_tag
-    = render :partial => 'layouts/google_analytics'
   %body{:class => "#{controller_name} #{controller_name}_#{action_name} #{user_signed_in? ? 'signed_in' : 'not_signed_in'}"}
     #header
       .inner_container
@@ -59,7 +30,7 @@
             #global_sign_in
               = link_to t('sign_in_join'), sign_in_path, :id => 'sign_in_link'
         %ul{:id=>'main_nav'}
-          = render :partial => 'layouts/main_nav_items_before' rescue nil        
+          = render :partial => 'layouts/main_nav_items_before' rescue nil
           %li= link_to t('main_nav.people.link'), people_path, :class => 'people'
           %li= link_to t('main_nav.companies.link'), companies_path, :class => 'companies'
           %li= link_to t('main_nav.groups.link'), groups_path, :class => 'groups'
@@ -92,3 +63,7 @@
       #twitter_link
         = t('layout.follow_link', :link => twitter_link("#{SETTINGS['organization']['twitter']}")).html_safe
 
+    = javascript_include_tag 'application'
+    %script
+      $(function() { $('#flash .message.success, #flash .message.notice').delay(4000).hide('blind'); });
+    = render :partial => 'layouts/google_analytics'
