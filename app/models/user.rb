@@ -39,12 +39,12 @@ class User < ActiveRecord::Base
   def grant!
     self.admin=1
     save
-  end  
+  end
   def ungrant!
     self.admin=0
     save
-  end  
-  
+  end
+
   SAMPLE_USER = {
     :email => "sample@sample.org",
     :admin => true,
@@ -53,11 +53,12 @@ class User < ActiveRecord::Base
   def self.find_sample
     return self.where(:email => User::SAMPLE_USER[:email]).first
   end
-  
+
   def self.find_or_create_sample(create_backreference=true)
     user = self.find_sample
     unless user
-      user = self.create!(SAMPLE_USER)
+      user = self.create!(email: SAMPLE_USER[:email])
+      user.grant!
     end
     if create_backreference && ! user.person
       person = Person.find_or_create_sample(false)
