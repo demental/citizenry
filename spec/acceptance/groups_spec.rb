@@ -15,7 +15,7 @@ feature "The group index" do
 
   scenario "should list groups" do
     visit groups_path
-    page.should have_css "ul.groups.resource_list li", :count => 3
+    page.should have_css "ul.resource_list li.group", :count => 3
     @groups.each do |group|
       page.should have_content group.name
     end
@@ -191,8 +191,8 @@ feature "The group edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_group_path(@first)
-      page.find("#group_tag_list").value.should == "newtag"
-      
+      page.find("#group_tag_list").value.should =~ /newtag/
+
       # Change 'newtag' to 'newertag'
       within 'form.group' do
         fill_in 'group_tag_list', :with => "newertag"
@@ -223,8 +223,8 @@ feature "The group edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_group_path(@first)
-      page.find("#group_technology_list").value.should == "newtechnology"
-      
+      page.find("#group_technology_list").value.should =~ /newtechnology/
+
       # Change 'newtechnology' to 'newertechnology'
       within 'form.group' do
         fill_in 'group_technology_list', :with => "newertechnology"
@@ -253,13 +253,13 @@ feature "The group edit form" do
         attach_file('group_logo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.logo')
     end
   end
 
   scenario "should allow a user to import a logo from the web" do
-    FakeWeb.register_uri(:get, "http://example.com/photo.png", 
+    FakeWeb.register_uri(:get, "http://example.com/photo.png",
                          :body => File.read(Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png')))
 
     signed_in_as(:user) do
@@ -271,7 +271,7 @@ feature "The group edit form" do
         fill_in 'group_logo_import_url', :with => "http://example.com/photo.png"
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.logo')
     end
   end
