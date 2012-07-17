@@ -37,16 +37,4 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
-
-  require 'fakeweb'
-  FakeWeb.allow_net_connect = false
-  definition = Person.attachment_definitions[:attachment]
-  path = "https*://.*.amazonaws.com/.*"
-  path.gsub!(/:([^\/\.]+)/) do |match|
-      "([^\/\.]+)"
-    end
-  FakeWeb.register_uri(:put, Regexp.new(path), :body => "OK")
-
-  require 'faker'
-  Faker::Config.locale = :en
 end

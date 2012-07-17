@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  #--[ Authentication ]------------------------------------------------------- 
+  #--[ Authentication ]-------------------------------------------------------
   factory :authentication do
     provider 'open_id'
     uid { UUID.generate(:compact) }
@@ -7,7 +7,7 @@ FactoryGirl.define do
   end
 
   #--[ Company ]------------------------------------------------------------------
-  factory :company do 
+  factory :company do
     name { Faker::Company.name }
     url {|c| "http://#{c.name.gsub(/[^\w]/,'').downcase}.com/" }
     address { [ Faker::Address.street_address,
@@ -18,7 +18,7 @@ FactoryGirl.define do
   end
 
   #--[ Group ]--------------------------------------------------------------------
-  factory :group do 
+  factory :group do
     name { "#{Faker::Address.city} #{Faker::Company.bs.split(' ').last} #{%w(group enthusiasts admirers mongers brigade developers).sample}".titleize }
     description {|g|  name_parts = g.name.split(' ')
                         topic = name_parts[-2]
@@ -31,7 +31,7 @@ FactoryGirl.define do
   end
 
   #--[ Person ]-------------------------------------------------------------------
-  factory :person do 
+  factory :person do
     name { Faker::Name.name }
     email { Faker::Internet.email }
     url { Faker::Internet.domain_name }
@@ -40,14 +40,14 @@ FactoryGirl.define do
   end
 
   #--[ Project ]------------------------------------------------------------------
-  factory :project do 
+  factory :project do
     name { "The #{Faker::Company.catch_phrase} Project".titleize }
     url {|p| "http://#{Faker::Internet.domain_name}/#{p.name.split(' ')[1]}".downcase }
     description {|p| "We're building #{p.name.split(' ')[1..-2].join(' ')} for #{Faker::Company.catch_phrase}!".capitalize }
   end
 
   #--[ Resource Links ]-----------------------------------------------------------
-  factory :resource_link do 
+  factory :resource_link do
     name { Faker::Company.bs.split(' ')[1..2].join(' ') }
     url { Faker::Internet.domain_name }
     description {|r| "A site that #{ Faker::Company.bs.split(' ').first } #{r.name}" }
@@ -55,23 +55,23 @@ FactoryGirl.define do
   end
 
   #--[ User ]---------------------------------------------------------------------
-  factory :user do 
+  factory :user do
     email { Faker::Internet.email }
     admin false
     after(:build) do |user|
       user.authentications = [ FactoryGirl.build(:authentication, :user => user) ]
     end
-    
-    factory :user_with_new_person do 
+
+    factory :user_with_new_person do
       person
     end
 
-    factory :user_with_person, parent: :user do 
+    factory :user_with_person, parent: :user do
       person {|u| u.association(:person, :reviewed => true) }
     end
   end
 
-  factory :admin_user, parent: :user do 
+  factory :admin_user, parent: :user do
     admin true
   end
 end

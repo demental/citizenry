@@ -1,5 +1,4 @@
 class Authentication < ActiveRecord::Base
-  extend ActiveSupport::Memoizable
 
   belongs_to :user
   serialize :info
