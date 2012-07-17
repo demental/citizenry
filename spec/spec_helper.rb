@@ -37,9 +37,4 @@ RSpec.configure do |config|
   # examples within a transaction, remove the following line or assign false
   # instead of true.
   config.use_transactional_fixtures = false
-
-  require 'fakeweb'
-  FakeWeb.allow_net_connect = false
-  require 'faker'
-  Faker::Config.locale = :en
 end
