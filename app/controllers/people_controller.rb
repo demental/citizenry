@@ -12,7 +12,10 @@ class PeopleController < InheritedResources::Base
 
   def index
     @view = :grid if params[:grid]
-    index!
+    index! do |format|
+      format.html
+      format.atom
+    end
   end
 
   def tag
