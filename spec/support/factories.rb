@@ -58,20 +58,20 @@ FactoryGirl.define do
   factory :user do 
     email { Faker::Internet.email }
     admin false
-    after_build do |user|
+    after(:build) do |user|
       user.authentications = [ FactoryGirl.build(:authentication, :user => user) ]
+    end
+    
+    factory :user_with_new_person do 
+      person
+    end
+
+    factory :user_with_person, parent: :user do 
+      person {|u| u.association(:person, :reviewed => true) }
     end
   end
 
-  factory :admin_user, :parent => :user do 
+  factory :admin_user, parent: :user do 
     admin true
-  end
-
-  factory :user_with_new_person, :parent => :user do 
-    association :person
-  end
-
-  factory :user_with_person, :parent => :user do 
-    person {|u| u.association(:person, :reviewed => true) }
   end
 end

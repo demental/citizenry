@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 def setup_people
   DatabaseCleaner.clean
-  @first_person  = Factory(:person)
-  @second_person = Factory(:person)
-  @third_person  = Factory(:person)
+  @first_person  = FactoryGirl.create(:person)
+  @second_person = FactoryGirl.create(:person)
+  @third_person  = FactoryGirl.create(:person)
   @people = [@first_person, @second_person, @third_person]
 end
 
@@ -15,10 +15,11 @@ feature "The person index" do
 
   scenario "should list people" do
     visit people_path
-    page.should have_css "ul.people.resource_list li", :count => 3
+    page.should have_css "ul.resource_list li.person", :count => 3
     @people.each do |person|
       page.should have_content person.name
     end
+
   end
 
   scenario "should list people by tag" do
@@ -33,16 +34,16 @@ feature "The person index" do
 
   scenario "should show the person grid" do
     visit grid_people_path
-    page.should have_css "ul.people.resource_grid li", :count => 3
+    page.should have_css "ul.resource_grid li.person", :count => 3
   end
 
   scenario "should be able to switch between the list and the grid" do
     visit people_path
-    page.should have_css "ul.people.resource_list li", :count => 3
+    page.should have_css "ul.resource_list li.person", :count => 3
     click_link I18n::t("list.view_as.grid")
-    page.should have_css "ul.people.resource_grid li", :count => 3
+    page.should have_css "ul.resource_grid li.person", :count => 3
     click_link I18n::t("list.view_as.list")
-    page.should have_css "ul.people.resource_list li", :count => 3
+    page.should have_css "ul.resource_list li.person", :count => 3
   end
 end
 
@@ -225,8 +226,8 @@ feature "The person edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_person_path(@person)
-      page.find("#person_tag_list").value.should == "newtag"
-      
+      page.find("#person_tag_list").value.should =~ /newtag/
+
       # Change 'newtag' to 'newertag'
       within 'form.person' do
         fill_in 'person_tag_list', :with => "newertag"
@@ -259,8 +260,8 @@ feature "The person edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_person_path(@person)
-      page.find("#person_technology_list").value.should == "newtechnology"
-      
+      page.find("#person_technology_list").value.should =~ /newtechnology/
+
       # Change 'newtechnology' to 'newertechnology'
       within 'form.person' do
         fill_in 'person_technology_list', :with => "newertechnology"
@@ -297,7 +298,7 @@ feature "The person edit form" do
   end
 
   scenario "should not allow duplicate slug" do
-    Factory.create(:person, :name => "Foo Bar", :custom_slug => "foo-bar")
+    FactoryGirl.create(:person, :name => "Foo Bar", :custom_slug => "foo-bar")
 
     signed_in_as(:user_with_person) do
       person = @user.person
@@ -330,13 +331,13 @@ feature "The person edit form" do
         attach_file('person_photo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.person_photo')
     end
   end
 
   scenario "should allow the user to import a photo from the web" do
-    FakeWeb.register_uri(:get, "http://example.com/photo.png", 
+    FakeWeb.register_uri(:get, "http://example.com/photo.png",
                          :body => File.read(Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png')))
 
     signed_in_as(:user_with_person) do
@@ -350,7 +351,7 @@ feature "The person edit form" do
         fill_in 'person_photo_import_url', :with => "http://example.com/photo.png"
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.person_photo')
     end
   end

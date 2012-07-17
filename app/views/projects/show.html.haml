@@ -1,31 +1,31 @@
-.single_record.project{:class => @project.logo.file? ? 'with_image' : 'without_image'}
-  = image_tag(@project.logo.url(:medium), :class => 'logo') if @project.logo.file?
+.single_record.project{class: @project.logo.file? ? 'with_image' : 'without_image'}
+  = image_tag(@project.logo.url(:medium), class: 'logo') if @project.logo.file?
   %h1= @project.name
   - if @project.description.present?
     .description= simple_format @project.description
   .links
     - if @project.url.present?
-      =link_to normalize_url(@project.url), normalize_url(@project.url), :class => 'url'
+      =link_to normalize_url(@project.url), normalize_url(@project.url), class: 'url'
 
   .record_actions
-    = link_to t('button.edit'), edit_project_path(@project), :class => 'edit'
-    = link_to t('button.delete'), project_path(@project), :confirm => t('alert.are_you_sure'), :method => :delete, :class => 'delete'
+    = link_to t('button.edit'), edit_project_path(@project), class: 'edit'
+    = link_to t('button.delete'), project_path(@project), data: { confirm: t('alert.are_you_sure') }, method: :delete, class: 'delete'
 
   - if @project.tags.present?
     .section.tags
       %h2= t('field.tag_list.title')
-      = render :partial => 'tags/list', :object => @project.tags, :locals => {:type => :project}
+      = tag_list @project.tags, :project
 
   - if @project.technologies.present?
     .section.technologies
       %h2= t('field.technology_list.title')
-      = render :partial => 'tags/list', :object => @project.technologies, :locals => {:type => :project}
+      = tag_list @project.technologies, :project
 
   .section.members
     %h2= t('field.collaborators.title')
     - if current_person
       - if @project.people.include?(current_person)
-        = link_to t('project.button.leave'), leave_project_path(@project), :class => 'leave', :method => :post
+        = link_to t('project.button.leave'), leave_project_path(@project), class: 'leave', method: :post
       - else
-        = link_to t('project.button.join'), join_project_path(@project), :class => 'join', :method => :post
-    = render :partial => 'people/list', :object => @project.people, :locals => {:context => :member_list}
+        = link_to t('project.button.join'), join_project_path(@project), class: 'join', method: :post
+    = render @project.people, context: :member_list

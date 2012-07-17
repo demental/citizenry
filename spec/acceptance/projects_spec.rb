@@ -2,9 +2,9 @@ require File.expand_path(File.dirname(__FILE__) + '/acceptance_helper')
 
 def setup_projects
   DatabaseCleaner.clean
-  @first  = Factory(:project)
-  @second = Factory(:project)
-  @third  = Factory(:project)
+  @first  = FactoryGirl.create(:project)
+  @second = FactoryGirl.create(:project)
+  @third  = FactoryGirl.create(:project)
   @projects = [@first, @second, @third]
 end
 
@@ -15,7 +15,7 @@ feature "The project index" do
 
   scenario "should list projects" do
     visit projects_path
-    page.should have_css "ul.projects.resource_list li", :count => 3
+    page.should have_css "ul.resource_list li.project", :count => 3
     @projects.each do |project|
       page.should have_content project.name
     end
@@ -96,7 +96,7 @@ feature "The new project form" do
     # where attributes are defined as the things that are actually stored on the project model, not tags or other bits
     signed_in_as(:user) do
       visit new_project_path
-      @from_factory = Factory.build(:project)
+      @from_factory = FactoryGirl.build(:project)
 
       within 'form.project' do
         fill_in 'project_name', :with => @from_factory.name
@@ -172,8 +172,8 @@ feature "The project edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_project_path(@first)
-      page.find("#project_tag_list").value.should == "newtag"
-      
+      page.find("#project_tag_list").value.should =~ /newtag/
+
       # Change 'newtag' to 'newertag'
       within 'form.project' do
         fill_in 'project_tag_list', :with => "newertag"
@@ -204,8 +204,8 @@ feature "The project edit form" do
 
       # Make sure it shows back up in the edit form
       visit edit_project_path(@first)
-      page.find("#project_technology_list").value.should == "newtechnology"
-      
+      page.find("#project_technology_list").value.should =~ /newtechnology/
+
       # Change 'newtechnology' to 'newertechnology'
       within 'form.project' do
         fill_in 'project_technology_list', :with => "newertechnology"
@@ -234,13 +234,13 @@ feature "The project edit form" do
         attach_file('project_logo', Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png'))
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.logo')
     end
   end
 
   scenario "should allow a user to import a logo from the web" do
-    FakeWeb.register_uri(:get, "http://example.com/photo.png", 
+    FakeWeb.register_uri(:get, "http://example.com/photo.png",
                          :body => File.read(Rails.root.join('spec', 'acceptance', 'support', 'test_photo.png')))
 
     signed_in_as(:user) do
@@ -252,7 +252,7 @@ feature "The project edit form" do
         fill_in 'project_logo_import_url', :with => "http://example.com/photo.png"
         find("input[name='commit']").click
       end
-      
+
       page.should have_selector('img.logo')
     end
   end

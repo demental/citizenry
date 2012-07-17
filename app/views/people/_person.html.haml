@@ -1,0 +1,19 @@
+- context ||= :general
+- view ||= :list
+
+%li.person
+  = link_to image_tag(person.photo_url(:medium)), person, class: 'avatar'
+  %h3
+    =link_to person.name, person
+    - if view == :list
+      - if person.twitter.present?
+        %span.twitter_link
+          = t('people.list.on_twitter', link: twitter_link(person.twitter)).html_safe
+      %p.bio= strip_links(person.bio)
+      - if params[:mentors]
+        %p.bio= person.mentor_topics
+      - elsif params[:mentees]
+        %p.bio= person.mentee_topics
+      - if context == :claim
+        .actions
+          = link_to t('people.button.claim'), claim_person_path(person), class: 'claim'

@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.1.0'
+gem 'rails', '3.2.6'
 gem 'rake', :require => false
 gem 'rails-i18n'
 
@@ -62,7 +62,7 @@ gem "paperclip", "~> 2.3"
 gem "inherited_resources", "~> 1.3.0"
 gem "responders", "~> 0.6.2"
 
-gem 'acts-as-taggable-on', "~> 2.1.1"
+gem 'acts-as-taggable-on', "~> 2.3.1"
 
 gem 'friendly_id', '4.0.0.beta14'
 
@@ -73,12 +73,17 @@ gem 'paper_trail_manager'
 
 #--[ View ]---------------------------------------------------------------------
 gem "haml", "~> 3.1.2"
-gem "sass", "~> 3.1.4"
-gem "compass", "~> 0.11.5"
-gem "compass-960-plugin", "~> 0.10.4", :require => 'ninesixty'
-gem 'jquery-rails', '>= 1.0.14'
 gem 'formtastic', '~>1.2.4'
 gem 'rdiscount'
+
+group :assets do
+  gem 'sass-rails'
+  gem 'compass-rails'
+  gem 'compass-960-plugin', require: 'ninesixty'
+  gem 'coffee-rails'
+  gem 'uglifier'
+  gem 'jquery-rails'
+end
 
 #--[ Controller ]---------------------------------------------------------------
 gem 'will_paginate', '~> 3.0.1'

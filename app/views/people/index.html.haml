@@ -23,8 +23,5 @@
         = "|"
         = link_to_unless_current t('list.mentor_filter.mentees'), mentees_people_path(:page => params[:page], :column => params[:column], :order => params[:order])
 
-
-- if @view == :grid
-  = render :partial => 'grid', :object => @people
-- else
-  = render :partial => 'list', :object => @people
+%ul{class: @view == :grid ? 'resource_grid' : 'resource_list' }
+  = render @people, view: @view

@@ -9,12 +9,18 @@ module ApplicationHelper
     link_to "@#{screen_name}", url
   end
 
+  def tag_list(taglist, type)
+    type ||= :all
+    taglist = taglist.map{|tag| link_to(tag, send("#{type.to_s.pluralize}_tagged_path", tag.to_s)) }
+    taglist.join(", ").html_safe
+  end
+
   # Generates a link to sort the collection by the given column
   #
   # Options:
   #   - :label => The text of the link, defaults to the humanized version of the column name
   #   - :default_order => Direction to use when first sorting by this column, either :asc or :desc
-  #   - :is_default =>  Specifies that the given column has been set as the default on the model, 
+  #   - :is_default =>  Specifies that the given column has been set as the default on the model,
   #                     in order to properly assign the 'current' class on initial page load with
   #                     no params given. Can be set to :asc or :desc to match the direction specified
   #                     in the model.

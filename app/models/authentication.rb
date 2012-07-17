@@ -25,9 +25,9 @@ class Authentication < ActiveRecord::Base
   end
 
   def api_client
-    APIClient.for(self)
+    @apiclient ||= APIClient.for(self)
   end
-  memoize :api_client
+
 
   def to_person
     if self.api_client

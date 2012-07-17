@@ -2,7 +2,7 @@
 
 %table
   %tr
-    %th 
+    %th
     %th= t('authentications.provider')
     %th= t('authentications.name')
     %th= t('authentications.account')
@@ -17,4 +17,4 @@
       %td= authentication.info[:nickname]
       %td
         - if @authentications.size > 1
-          = link_to t("Remove"), authentication_path(authentication), :confirm => t('Are you sure?'), :method => :delete
+        = link_to t("Remove"), authentication_path(authentication), data: { confirm: t('Are you sure?') }, :method => :delete
