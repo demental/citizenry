@@ -47,6 +47,22 @@ feature "The person index" do
   end
 end
 
+feature "The mentoring filters" do
+  scenario "when mentoring enabled, should allow to view mentors and mentorees" do
+    SETTINGS['mentoring'] = true
+    visit people_path
+    page.should have_link I18n.t('list.mentor_filter.mentors')
+    page.should have_link I18n.t('list.mentor_filter.mentees')
+  end
+
+  scenario "when mentoring disabled, should not allow to view mentors and mentorees" do
+    SETTINGS['mentoring'] = false
+    visit people_path
+    page.should_not have_link I18n.t('list.mentor_filter.mentors')
+    page.should_not have_link I18n.t('list.mentor_filter.mentees')
+  end
+end
+
 feature "The person show page" do
   background do
     setup_people
