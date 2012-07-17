@@ -42,7 +42,6 @@ from installing any gems, packages, or dependencies directly on the server.
       :content => motd_contents
   end
 
-
   # Install postfix.
   def postfix
     package 'postfix', :ensure => :latest
@@ -66,7 +65,6 @@ from installing any gems, packages, or dependencies directly on the server.
       :ensure => "/usr/share/zoneinfo/#{zone}",
       :notify => service('ntp')
   end
-
 
   # Configure automatic security updates. Output regarding errors
   # will be sent to <tt>configuration[:user]</tt>. To exclude specific

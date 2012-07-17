@@ -107,7 +107,7 @@ class AuthProbe
                 Strategy::HostOpenID,
                 Strategy::GoogleAppsMX,
                 Strategy::YahooMailMX,
-#                Strategy::GitHub,
+                Strategy::GitHub,
 #                Strategy::Viadeo,
               ]
 end

@@ -188,7 +188,6 @@ describe Moonshine::Manifest::Rails do
       )
     end
 
->>>>>>> d7daf234ef763fcc590d2bc71a3990600833db8d
 
     describe "passenger_site" do
       it "enables passenger vhost, disables default vhost, and configures mod_rewrite" do
@@ -215,7 +214,6 @@ describe Moonshine::Manifest::Rails do
           /RailsBaseURI \/test/
         )
       end
-
 
       it "supports configuring gzip" do
         @manifest.passenger_configure_gem_path
@@ -504,4 +502,5 @@ describe Moonshine::Manifest::Rails do
       libmagick9_dev.type.should == 'Package'
     end
   end
+
 end
