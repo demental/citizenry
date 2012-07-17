@@ -26,4 +26,4 @@
 
 %ul{class: @view == :grid ? 'resource_grid' : 'resource_list' }
   = render @people, view: @view
-= render 'shared/list_pagination', :object => @people
+= render 'shared/list_pagination', list: @people
