@@ -8,21 +8,36 @@
 // More advanced features are added for browsers that support them in level2 and level3
 
 @import lib/config
-
-@import lib/mixins
-
-@import lib/reset
-@import lib/basic_elements
-@import lib/type
 @import lib/forms
 
 @import lib/utility
 
-.desktop-only
-  display: none
 
 body
-  background: $background_color
+  background: $background_color url('background.png') repeat-x
+.nav-bar
+  background: transparent
+  &>li
+    border: none
+    &:last-child
+      border: none
+    &>a:first-child
+      @include font-size(24)
+      @extend .league_gothic
+      color: $black
+    &:hover
+      background: transparent
+      .people
+        color: $people_color
+      .companies
+        color: $companies_color
+      .groups
+        color: $groups_color
+      .projects
+        color: $projects_color
+      .resources
+        color: $resources_color
+
 
 h1, h2, h3
   font-weight: bold
@@ -65,47 +80,17 @@ body.site_index
     display: none
 
 #header
-  background-color: $header_background
-  position: relative
-  padding: 10px 10px 0
-  h1
-    +behead
-    font-size: 28px
-    display: inline
-    a
-      color: $text_color
-      span
-        color: $logo_highlight
-      .home_marker
-        margin-left: 6px
-      &:hover
-        text-decoration: none
-        color: lighten($text_color, 20)
+  background-color: transparent
+  background-image: url('rainbow.png')
+  background-repeat: repeat-x
+  +background-size(100% 3px)
   #global_search
-    margin: 5px -10px 0
-    padding: 5px 10px
     background: #bbb
     border-top: 1px solid #999
     input
       width: 100%
   #account_box
-    position: absolute
-    right: 10px
-    top: 10px
-    img.avatar
-      margin-right: .5em
-      width: 28px
-      height: 28px
-    .name
-      font-weight: bold
-      display: inline
-      padding-right: .5em
-      margin-right: .5em
-      border-right: 1px solid #666
-      a
-        color: #000
     #global_sign_in
-      width: 100px
       background: $events_color
       #sign_in_link
         display: block
@@ -119,8 +104,6 @@ body.site_index
         height: 0
         overflow: hidden
         width: 85%
-  #main_nav
-    display: none
 
 #global_sign_in_form
   background: #fff
@@ -158,37 +141,25 @@ body.site_index
 body.authentications_login #header #account_box
   display: none
 
-body.people #content
-  border-top: 3px solid $people_color
-body.companies #content
-  border-top: 3px solid $companies_color
-body.groups #content
-  border-top: 3px solid $groups_color
-body.projects #content
-  border-top: 3px solid $projects_color
-body.resource_links #content
-  border-top: 3px solid $resources_color
-body.events #content
-  border-top: 3px solid $events_color
+
+body #content
+  border-top: 3px solid
 
 #site_intro
   padding: 10px
-  margin: 0 -10px
+  margin: 67px 0 0 0
   background: #424242
   color: #f2f2f2
-  font-size: 16px
+  font-size: 28px
   font-weight: bold
   line-height: 1.3em
   .awesome
     display: block
     color: $logo_highlight
     text-transform: uppercase
-    font-size: 22px
+    font-size: 30px
     position: relative
     top: 0.08em
-
-#home_to
-  text-transform: uppercase
 
 .section_header
   .count

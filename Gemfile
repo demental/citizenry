@@ -81,7 +81,9 @@ group :assets do
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-rails'
-  gem 'zurb-foundation'
+  gem 'bourbon'
+  gem 'compass-rails', '~> 1.0.3'
+  gem 'zurb-foundation', '~> 3.0.1'
 end
 
 #--[ Controller ]---------------------------------------------------------------

@@ -1,75 +1,50 @@
-@import lib/config
-@import lib/mixins
-
-@import compass/css3
-@import 960/grid
-
-@import lib/webfonts
-@import lib/transitions
-@import lib/border_radius
+@import foundation
+@import bourbon
+@import lib/_config
+@import lib/_mixins
+@import lib/_webfonts
 
 form.formtastic
   input, textarea
     width: auto
 
-.desktop-only
-  display: inline
-div.desktop-only
-  display: block
-
-#header .inner_container, #content, #footer
-  +grid-container
-
-body
-  background: $background_color url('background.png') repeat-x
-  &.site_index
-    background-position: 0 -25px
-    #content
-      background: transparent
-      margin-top: 1.5em
-  &.signed_in
-    #header
-      #global_search
-        right: 170px
-
-#header
-  z-index: 50
-  .inner_container
-    +clearfix
-    position: relative
-    z-index: 60
-  background-color: transparent
-  background-image: url('rainbow.png')
-  background-repeat: repeat-x
-  +background-size(100% 3px)
-  padding: 10px
+#header .inner_container
+  +outerRow
+  h1
+    +column(7)
   #global_search
-    background: transparent
-    margin: 0
-    padding: 0
-    border: none
-    position: absolute
-    top: 8px
-    right: 110px
-    z-index: 85
+    +column(2)
     input
       width: auto
+  #account_box
+    +column(3)
+    img.avatar
+      width: 35px
+      height: 35px
+  #main_nav
+    @extend .nav-bar
+    @extend .league_gothic
+
+#content
+  +outerRow
+
+#footer
+  +outerRow
+
+
+#content
+  #site_intro
+    +column(5)
+  #front_nav
+    +column(7)
+
+#header
   h1
-    +grid(2,16)
-    +alpha
     a img
       +opacity(0)
     a:hover img
       +opacity(0.7)
-  #main_nav
-    display: block
-    +horizontal-list
-    @extend .league_gothic
-    +grid(11,16)
-    z-index: 80
     li
-      margin-right: 2em
-      margin-top: 6px
       a
         color: black
         text-transform: uppercase
@@ -95,33 +70,10 @@ body
         &.events
           &:hover, &.active
             @extend .events-text
-  #account_box
-    position: static
-    padding-top: 5px
-    +grid(3,16)
-    +omega
-    float: right
-    img.avatar
-      width: 35px
-      height: 35px
-    .name
-      display: block
-      padding-right: 0
-      margin-right: 0
-      border-right: none
-    #global_sign_in
-      float: right
-
 #global_sign_in_form
-  position: absolute
-  top: 3.45em
-  left: 50%
-  z-index: 99
-  width: 250px
-  margin-left: 210px
   +opacity(0)
   +border-radius(.25em)
-  +box-shadow
+  +box-shadow(0 0 5px 3px hsla(0, 0%, 0%, 0.65))
   &.open
     border-width: 3px
     height: 110px
@@ -132,26 +84,7 @@ body
     li
       +no-bullets
 
-
-#site_intro
-  font-size: 30px
-  +grid(6,16)
-  +alpha
-  margin-top: 1em
-  .awesome
-    font-size: 35px
-
-#front_nav
-  +grid(10,16)
-  +omega
-
-#footer
-  div
-    display: inline
-    margin-right: 4em
-
 #content
-  +clearfix
   background: $background_color
   .section_header
     #view_options
@@ -173,7 +106,7 @@ body
   .resource_grid
     +clearfix
     li
-      +grid(4,16)
+      +column(3)
   .single_record
     position: relative
     &.with_image
@@ -194,8 +127,7 @@ body
       float: right
   #welcome
     #possible_duplicates
-      +grid(6,16)
-      +omega
+      +column(5)
       float: right
       li
         position: relative
@@ -205,15 +137,12 @@ body
           right: 0
           top: 10px
     #add_yourself
-      +grid(10,16)
-      +alpha
+      +column(8)
   #user_home
     #profile
-      +grid(10,16)
-      +alpha
+      +column(8)
     #authentications
-      +grid(6,16)
-      +omega
+      +column(4)
   #view_options
     .show
       padding-left: 20px

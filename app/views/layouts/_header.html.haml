@@ -1,0 +1,32 @@
+%h1
+  %a{:href => root_path}
+    ="#{SETTINGS['organization']['logotype']}".html_safe
+    %img.home_marker{:src => '/images/home_12x12.png', :height => 12, :width => 12}
+
+%form{:action => search_path, :method => :get, :id => 'global_search'}
+  %input{ :type => 'search', :placeholder => t('field.search.placeholder'), :name => 'q', :value => params[:query], |
+          :results => 10, :autosave => 'citizenry_global_search'}
+
+#account_box{:class => current_user.try(:admin?) ? 'admin' : nil}
+  - if current_user.present?
+    - if current_user.avatar_url
+      %img.avatar{:src => normalize_url(current_user.avatar_url), :align => 'left'}
+    .name
+      = link_to current_user.name, home_users_path
+    = link_to t('sign_out'), sign_out_path
+  - else
+    #global_sign_in
+      = link_to t('sign_in_join'), sign_in_path, :id => 'sign_in_link'
+- if current_user.blank?
+  #global_sign_in_form
+    = render :partial => 'authentications/login_form'
+
+
+%ul#main_nav
+  = render :partial => 'layouts/main_nav_items_before' rescue nil
+  %li= link_to t('main_nav.people.link'), people_path, :class => 'people'
+  %li= link_to t('main_nav.companies.link'), companies_path, :class => 'companies'
+  %li= link_to t('main_nav.groups.link'), groups_path, :class => 'groups'
+  %li= link_to t('main_nav.projects_products.link'), projects_path, :class => 'projects'
+  %li= link_to t('main_nav.resources.link'), resource_links_path, :class => 'resources'
+  = render :partial => 'layouts/main_nav_items_after' rescue nil
