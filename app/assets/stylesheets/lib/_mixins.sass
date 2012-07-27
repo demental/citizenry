@@ -1,8 +1,3 @@
-
-// Import fortastic-sass' base mixins
-@import lib/formtastic-sass/formtastic_base
-
-
 // Our Mixins
 @mixin no-bullet
   list-style-image: none
@@ -23,13 +18,6 @@
     color: white
     &.disabled
       color: #333333
-
-// Off with the stuff we added to headers
-=behead
-  position: static
-  top: 0
-  margin: 0
-  line-height: 1
 
 =debug($debug_color: orange)
   background: orange
@@ -90,15 +78,18 @@
   @extend .blocky_icon_link
   background-image: image_url('sanscons_16/arrow1_e.png')
 
-.edit_link
+.edit
   @extend .blocky_icon_link
   background-color: #666
   background-image: image_url('sanscons_16/edit.png')
-
+  @media screen and (max-width: $bigphone)
+    text-indent: -9999px
+    width: 32px
+    overflow: hidden
 .delete_link
-  @extend .edit_link
+  @extend .edit
   background-image: image_url('sanscons_16/trash.png')
-
+  background-color: $error_color
 .feed_link
   @extend .blocky_icon_link
   background-color: $people_color

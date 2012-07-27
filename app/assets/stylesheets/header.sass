@@ -12,6 +12,11 @@
   +background-size(100% 3px)
   h1
     margin: 10px 0 0 0
+    @media screen and (max-width: $bigphone)
+      font-size: 28px
+    @media screen and (max-width: $phone)
+      font-size: 22px
+
   #global_search > *, #account_box > *
     margin: 1.5em 0 0 0
   form
@@ -25,10 +30,34 @@
         color: #fff
         padding: .5em
         text-align: center
+    #global_sign_in_form
+      +opacity(0)
+      +border-radius(.25em)
+      +box-shadow(0 0 5px 3px hsla(0, 0%, 0%, 0.65))
+      position: absolute
+      z-index: 3000
+      background: #fff
+      &.open
+        border-width: 3px
+        height: 200px
+        +opacity(1)
+        padding-bottom: 5px
+        li
+          +no-bullets
 
 .nav-bar
   background: transparent
   &>li
+    @media screen and (max-width: $bigphone)
+      line-height: 2.2em
+      float: right
+      a:first-child
+        padding: 0 10px
+    @media screen and (max-width: $phone)
+      clear: right
+      background: #ddd
+      width: 100%
+      margin-bottom: 2px
     line-height: 1.4em
     border: none
     &:last-child

@@ -82,9 +82,17 @@ body.site_index
     +section_count_color($events_color)
 
 #content
+  @media screen and (max-width: $bigphone)
+    h1
+      font-size: 22px
+      line-height: 24px
+    h2
+      font-size: 18px
+      line-height: 20px
   .section_header
     color: #fff
     #view_options
+
       a
         color: #fff
       .sorting
@@ -139,7 +147,14 @@ body.site_index
     a.new
       font-weight: bold
       font-size: 1.5em
-      float: right
+
+      @media screen and (min-width: $tablet)
+        float: right
+      @media screen and (max-width: $bigphone)
+        font-size: 28px
+      @media screen and (max-width: $phone)
+        font-size: 22px
+
       display: block
       background: #fff
       margin: 3px 5px
@@ -240,7 +255,6 @@ body.site_index
   .people, #people_search_results
   #welcome
     h2
-      +behead
       color: #fff
       padding: .5em
       margin: 0 -10px

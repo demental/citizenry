@@ -4,12 +4,12 @@ class Person < ActiveRecord::Base
 
   include SearchEngine
 
-  attr_protected :user_id
+#  attr_protected :user_id
   has_paper_trail :ignore => [:user_id, :delta]
   acts_as_taggable_on :tags, :technologies
   sortable :created_at, :desc
 
-  default_serialization_options :include => { :projects => {:include => [:tags, :technologies]}, 
+  default_serialization_options :include => { :projects => {:include => [:tags, :technologies]},
                                               :groups => {:include => [:tags, :technologies]},
                                               :companies  => {:include => [:tags, :technologies]},
                                               :tags => {},
