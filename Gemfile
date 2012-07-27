@@ -78,11 +78,12 @@ gem 'rdiscount'
 
 group :assets do
   gem 'sass-rails'
-  gem 'compass-rails'
-  gem 'compass-960-plugin', require: 'ninesixty'
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-rails'
+  gem 'bourbon'
+  gem 'compass-rails', '~> 1.0.3'
+  gem 'zurb-foundation', '~> 3.0.1'
 end
 
 #--[ Controller ]---------------------------------------------------------------

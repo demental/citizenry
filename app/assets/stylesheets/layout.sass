@@ -1,0 +1,151 @@
+@import foundation
+@import bourbon
+@import lib/_config
+@import lib/_mixins
+@import lib/_webfonts
+
+form.formtastic
+  input, textarea
+    width: auto
+
+#header
+  .inner_container
+    +outerRow
+    h1
+      +column(7)
+    #global_search
+      +column(2)
+    #account_box
+      +column(3)
+      img.avatar
+        width: 35px
+        height: 35px
+  #main_nav
+    +outerRow
+    @extend .nav-bar
+    @extend .league_gothic
+
+#content
+  +outerRow
+
+#footer
+  +outerRow
+
+
+#content
+  #site_intro
+    +column(5)
+  #front_nav
+    +column(7)
+
+#header
+  h1
+    a img
+      +opacity(0)
+    a:hover img
+      +opacity(0.7)
+    li
+      a
+        color: black
+        text-transform: uppercase
+        font-size: 20px
+        line-height: 20px
+        &:hover, &.active
+          text-decoration: none
+        &.people
+          &:hover, &.active
+            @extend .people-text
+        &.companies
+          &:hover, &.active
+            @extend .companies-text
+        &.groups
+          &:hover, &.active
+            @extend .groups-text
+        &.projects
+          &:hover, &.active
+            @extend .projects-text
+        &.resources
+          &:hover, &.active
+            @extend .resources-text
+        &.events
+          &:hover, &.active
+            @extend .events-text
+#global_sign_in_form
+  +opacity(0)
+  +border-radius(.25em)
+  +box-shadow(0 0 5px 3px hsla(0, 0%, 0%, 0.65))
+  position: absolute
+  z-index: 3000
+  background: #fff
+  &.open
+    border-width: 3px
+    height: 200px
+    +opacity(1)
+    padding-bottom: 5px
+    li
+      +no-bullets
+
+#content
+  background: $background_color
+  .section_header
+    #view_options
+      text-align: right
+      padding: 2px 5px
+  .resource_list
+    li
+      width: auto
+      h3
+        display: inline
+        margin-right: .5em
+  .pagination
+    span.disabled, em, a
+      float: left
+  .resource_grid
+    +clearfix
+    li
+      +column(3)
+  .single_record
+    position: relative
+    &.with_image
+      padding-left: 230px
+      min-height: 220px
+    img.person_photo, img.logo
+      width: 220px
+      position: absolute
+      top: 0
+      left: 0
+      margin: 0
+    .record_actions
+      position: absolute
+      right: 0
+      top: 0
+      z-index: 10
+    #claim_user
+      float: right
+  #welcome
+    #possible_duplicates
+      +column(5)
+      float: right
+      li
+        position: relative
+        padding-right: 120px
+        .claim
+          position: absolute
+          right: 0
+          top: 10px
+    #add_yourself
+      +column(8)
+  #user_home
+    #profile
+      +column(8)
+    #authentications
+      +column(4)
+  #view_options
+    .show
+      padding-left: 20px
+
+div#creepy-baby-sloth
+  margin: 2em auto 0 auto
+  width: 640px
+  img
+    border: 2px solid $error_color

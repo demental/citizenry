@@ -1,0 +1,64 @@
+@import lib/config
+
+#front_nav
+  +no-bullets
+  margin: 0
+  font-weight: bold
+
+  li
+    margin: 0 0 5px
+    a
+      font-size: 26px
+      position: relative
+      display: block
+      padding: 5px
+      color: #fff
+      .count
+        +transform(rotate(-5deg))
+        padding: 1px 5px
+        display: inline-block
+        margin-right: 5px
+        text-align: right
+      &:hover
+        text-decoration: none
+    &.people a
+      @extend .people-bg
+      +section_count_color($people_color)
+      +section_hover_color($people_color)
+    &.companies a
+      @extend .companies-bg
+      +section_count_color($companies_color)
+      +section_hover_color($companies_color)
+    &.groups a
+      @extend .groups-bg
+      +section_count_color($groups_color)
+      +section_hover_color($groups_color)
+    &.projects a
+      @extend .projects-bg
+      +section_count_color($projects_color)
+      +section_hover_color($projects_color)
+    &.resources a
+      @extend .resources-bg
+      +section_count_color($resources_color)
+      +section_hover_color($resources_color)
+    &.events a
+      @extend .events-bg
+      +section_count_color($events_color)
+      +section_hover_color($events_color)
+
+#site_intro
+  padding: 10px
+  margin: 67px 0 0 0
+  background: #424242
+  color: #f2f2f2
+  font-size: 28px
+  font-weight: bold
+  line-height: 1.3em
+  .awesome
+    display: block
+    color: $logo_highlight
+    text-transform: uppercase
+    font-size: 30px
+    position: relative
+    top: 0.08em
+

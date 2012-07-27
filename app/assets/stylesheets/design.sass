@@ -8,26 +8,20 @@
 // More advanced features are added for browsers that support them in level2 and level3
 
 @import lib/config
-
-@import lib/mixins
-
-@import lib/reset
-@import lib/basic_elements
-@import lib/type
 @import lib/forms
 
 @import lib/utility
-
-.desktop-only
-  display: none
+@import bourbon
+@import lib/transitions
 
 body
-  background: $background_color
+  background: $background_color url('background.png') repeat-x
 
-h1, h2, h3
-  font-weight: bold
 h1, h2
   color: #333
+  span
+    color: #000
+    +transform(rotate(-8deg))
 h3
   color: $heading_accent_color
 h4
@@ -64,140 +58,16 @@ body.site_index
   .home_marker
     display: none
 
-#header
-  background-color: $header_background
-  position: relative
-  padding: 10px 10px 0
-  h1
-    +behead
-    font-size: 28px
-    display: inline
-    a
-      color: $text_color
-      span
-        color: $logo_highlight
-      .home_marker
-        margin-left: 6px
-      &:hover
-        text-decoration: none
-        color: lighten($text_color, 20)
-  #global_search
-    margin: 5px -10px 0
-    padding: 5px 10px
-    background: #bbb
-    border-top: 1px solid #999
-    input
-      width: 100%
-  #account_box
-    position: absolute
-    right: 10px
-    top: 10px
-    img.avatar
-      margin-right: .5em
-      width: 28px
-      height: 28px
-    .name
-      font-weight: bold
-      display: inline
-      padding-right: .5em
-      margin-right: .5em
-      border-right: 1px solid #666
-      a
-        color: #000
-    #global_sign_in
-      width: 100px
-      background: $events_color
-      #sign_in_link
-        display: block
-        font-weight: bold
-        color: #fff
-        padding: .5em
-        text-align: center
-      .sign_in_form
-        position: static
-        left: 0
-        height: 0
-        overflow: hidden
-        width: 85%
-  #main_nav
-    display: none
-
-#global_sign_in_form
-  background: #fff
-  padding: 0 10px
-  margin: 0 -10px
-  height: 0
-  overflow: hidden
-  form
-    padding: 1em
-  &.open
-    height: auto
-    padding-bottom: 1em
-    border: 1px solid #d5d5d5
-    border-width: 1px 0
-  label
-    font-weight: bold
-  .required label abbr
-    display: none
-  .string input
-    width: 90%
-  #sign_in_data_provider_input
-    label
-      display: none
-  #sign_in_data_provider_input, li.commit
-    display: inline-block
-    padding: 0
-
-body.site_index
-  #content
-    padding: 0 10px 10px
-
-#content, #footer
-  padding: 10px
-
-body.authentications_login #header #account_box
-  display: none
-
-body.people #content
-  border-top: 3px solid $people_color
-body.companies #content
-  border-top: 3px solid $companies_color
-body.groups #content
-  border-top: 3px solid $groups_color
-body.projects #content
-  border-top: 3px solid $projects_color
-body.resource_links #content
-  border-top: 3px solid $resources_color
-body.events #content
-  border-top: 3px solid $events_color
-
-#site_intro
-  padding: 10px
-  margin: 0 -10px
-  background: #424242
-  color: #f2f2f2
-  font-size: 16px
-  font-weight: bold
-  line-height: 1.3em
-  .awesome
-    display: block
-    color: $logo_highlight
-    text-transform: uppercase
-    font-size: 22px
-    position: relative
-    top: 0.08em
-
-#home_to
-  text-transform: uppercase
-
 .section_header
+  background: #ccc
+  font-size: 24px
   .count
     padding: 0 5px
     line-height: 1
     display: inline-block
     margin: 0 5px 0 -5px
     text-align: right
-    background: #383838
+    background: #a8a8a8
   &.people h1
     +section_count_color($people_color)
   &.companies h1
@@ -211,67 +81,14 @@ body.events #content
   &.events h1
     +section_count_color($events_color)
 
-#front_nav
-  +no-bullets
-  margin: 0
-  font-weight: bold
-  font-size: 26px
-  li
-    margin: 0 0 5px
-    a
-      position: relative
-      display: block
-      padding: 5px
-      color: #fff
-      .count
-        padding: 5px
-        display: inline-block
-        margin-right: 5px
-        text-align: right
-      &:hover
-        text-decoration: none
-
-    &.people a
-      @extend .people-bg
-      +section_count_color($people_color)
-      +section_hover_color($people_color)
-    &.companies a
-      @extend .companies-bg
-      +section_count_color($companies_color)
-      +section_hover_color($companies_color)
-    &.groups a
-      @extend .groups-bg
-      +section_count_color($groups_color)
-      +section_hover_color($groups_color)
-    &.projects a
-      @extend .projects-bg
-      +section_count_color($projects_color)
-      +section_hover_color($projects_color)
-    &.resources a
-      @extend .resources-bg
-      +section_count_color($resources_color)
-      +section_hover_color($resources_color)
-    &.events a
-      @extend .events-bg
-      +section_count_color($events_color)
-      +section_hover_color($events_color)
-
 #content
-  position: relative
-  h1
-    +behead
-    margin-bottom: 0.1em
   .section_header
-    background: #555
-    margin: -10px -10px 0
     color: #fff
     #view_options
-      margin-left: 1em
       a
         color: #fff
       .sorting
         a
-          margin-left: 3px
           &.current
             // font-style: italic
             &.asc, &.desc
@@ -314,7 +131,6 @@ body.events #content
         background: #fff
 
     h1
-      +behead
       line-height: 1.2
       margin-left: 10px
       display: inline

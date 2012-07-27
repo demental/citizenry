@@ -5,11 +5,12 @@
 - if @results.blank?
   %h2= t('site.search.no_result')
   %p
-    = t('site.search.no_result_text', :query => params[:query]).html_safe 
+    = t('site.search.no_result_text', :query => params[:query]).html_safe
     = t('site.search.no_result_try_again')
-    
+
 - else
   %ul.resource_list.search_results
     - @results.each do |result|
-      = render :partial => "#{result.class.name.tableize}/list_item", :object => result
-  = render :partial => 'shared/list_pagination', :object => @results
+      = render result
+= render 'shared/list_pagination', list: @results
+
