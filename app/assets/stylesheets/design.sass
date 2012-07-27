@@ -11,38 +11,17 @@
 @import lib/forms
 
 @import lib/utility
-
+@import bourbon
+@import lib/transitions
 
 body
   background: $background_color url('background.png') repeat-x
-.nav-bar
-  background: transparent
-  &>li
-    border: none
-    &:last-child
-      border: none
-    &>a:first-child
-      @include font-size(24)
-      @extend .league_gothic
-      color: $black
-    &:hover
-      background: transparent
-      .people
-        color: $people_color
-      .companies
-        color: $companies_color
-      .groups
-        color: $groups_color
-      .projects
-        color: $projects_color
-      .resources
-        color: $resources_color
 
-
-h1, h2, h3
-  font-weight: bold
 h1, h2
   color: #333
+  span
+    color: #000
+    +transform(rotate(-8deg))
 h3
   color: $heading_accent_color
 h4
@@ -79,96 +58,16 @@ body.site_index
   .home_marker
     display: none
 
-#header
-  background-color: transparent
-  background-image: url('rainbow.png')
-  background-repeat: repeat-x
-  +background-size(100% 3px)
-  #global_search
-    background: #bbb
-    border-top: 1px solid #999
-    input
-      width: 100%
-  #account_box
-    #global_sign_in
-      background: $events_color
-      #sign_in_link
-        display: block
-        font-weight: bold
-        color: #fff
-        padding: .5em
-        text-align: center
-      .sign_in_form
-        position: static
-        left: 0
-        height: 0
-        overflow: hidden
-        width: 85%
-
-#global_sign_in_form
-  background: #fff
-  padding: 0 10px
-  margin: 0 -10px
-  height: 0
-  overflow: hidden
-  form
-    padding: 1em
-  &.open
-    height: auto
-    padding-bottom: 1em
-    border: 1px solid #d5d5d5
-    border-width: 1px 0
-  label
-    font-weight: bold
-  .required label abbr
-    display: none
-  .string input
-    width: 90%
-  #sign_in_data_provider_input
-    label
-      display: none
-  #sign_in_data_provider_input, li.commit
-    display: inline-block
-    padding: 0
-
-body.site_index
-  #content
-    padding: 0 10px 10px
-
-#content, #footer
-  padding: 10px
-
-body.authentications_login #header #account_box
-  display: none
-
-
-body #content
-  border-top: 3px solid
-
-#site_intro
-  padding: 10px
-  margin: 67px 0 0 0
-  background: #424242
-  color: #f2f2f2
-  font-size: 28px
-  font-weight: bold
-  line-height: 1.3em
-  .awesome
-    display: block
-    color: $logo_highlight
-    text-transform: uppercase
-    font-size: 30px
-    position: relative
-    top: 0.08em
-
 .section_header
+  background: #ccc
+  font-size: 24px
   .count
     padding: 0 5px
     line-height: 1
     display: inline-block
     margin: 0 5px 0 -5px
     text-align: right
-    background: #383838
+    background: #a8a8a8
   &.people h1
     +section_count_color($people_color)
   &.companies h1
@@ -182,67 +81,14 @@ body #content
   &.events h1
     +section_count_color($events_color)
 
-#front_nav
-  +no-bullets
-  margin: 0
-  font-weight: bold
-  font-size: 26px
-  li
-    margin: 0 0 5px
-    a
-      position: relative
-      display: block
-      padding: 5px
-      color: #fff
-      .count
-        padding: 5px
-        display: inline-block
-        margin-right: 5px
-        text-align: right
-      &:hover
-        text-decoration: none
-
-    &.people a
-      @extend .people-bg
-      +section_count_color($people_color)
-      +section_hover_color($people_color)
-    &.companies a
-      @extend .companies-bg
-      +section_count_color($companies_color)
-      +section_hover_color($companies_color)
-    &.groups a
-      @extend .groups-bg
-      +section_count_color($groups_color)
-      +section_hover_color($groups_color)
-    &.projects a
-      @extend .projects-bg
-      +section_count_color($projects_color)
-      +section_hover_color($projects_color)
-    &.resources a
-      @extend .resources-bg
-      +section_count_color($resources_color)
-      +section_hover_color($resources_color)
-    &.events a
-      @extend .events-bg
-      +section_count_color($events_color)
-      +section_hover_color($events_color)
-
 #content
-  position: relative
-  h1
-    +behead
-    margin-bottom: 0.1em
   .section_header
-    background: #555
-    margin: -10px -10px 0
     color: #fff
     #view_options
-      margin-left: 1em
       a
         color: #fff
       .sorting
         a
-          margin-left: 3px
           &.current
             // font-style: italic
             &.asc, &.desc
@@ -285,7 +131,6 @@ body #content
         background: #fff
 
     h1
-      +behead
       line-height: 1.2
       margin-left: 10px
       display: inline

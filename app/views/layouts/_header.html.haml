@@ -17,16 +17,6 @@
   - else
     #global_sign_in
       = link_to t('sign_in_join'), sign_in_path, :id => 'sign_in_link'
-- if current_user.blank?
-  #global_sign_in_form
-    = render :partial => 'authentications/login_form'
-
-
-%ul#main_nav
-  = render :partial => 'layouts/main_nav_items_before' rescue nil
-  %li= link_to t('main_nav.people.link'), people_path, :class => 'people'
-  %li= link_to t('main_nav.companies.link'), companies_path, :class => 'companies'
-  %li= link_to t('main_nav.groups.link'), groups_path, :class => 'groups'
-  %li= link_to t('main_nav.projects_products.link'), projects_path, :class => 'projects'
-  %li= link_to t('main_nav.resources.link'), resource_links_path, :class => 'resources'
-  = render :partial => 'layouts/main_nav_items_after' rescue nil
+      - if current_user.blank?
+        #global_sign_in_form
+          = render :partial => 'authentications/login_form'

@@ -1,0 +1,52 @@
+@import lib/config
+@import lib/forms
+
+@import lib/utility
+@import bourbon
+
+#header
+
+  background-color: transparent
+  background-image: url('rainbow.png')
+  background-repeat: repeat-x
+  +background-size(100% 3px)
+  h1
+    margin: 10px 0 0 0
+  #global_search > *, #account_box > *
+    margin: 1.5em 0 0 0
+  form
+    margin: 0
+  #account_box
+    #global_sign_in
+      background: $events_color
+      #sign_in_link
+        display: block
+        font-weight: bold
+        color: #fff
+        padding: .5em
+        text-align: center
+
+.nav-bar
+  background: transparent
+  &>li
+    line-height: 1.4em
+    border: none
+    &:last-child
+      border: none
+    &>a:first-child
+      @include font-size(24)
+      @extend .league_gothic
+      color: $black
+    &:hover
+      background: transparent
+      .people
+        color: $people_color
+      .companies
+        color: $companies_color
+      .groups
+        color: $groups_color
+      .projects
+        color: $projects_color
+      .resources
+        color: $resources_color
+

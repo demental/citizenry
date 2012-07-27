@@ -1,5 +1,5 @@
 .quick_ease
-  +transition(all, 0.2s, ease-out)
+  +transition(all 0.2s ease-out)
 
 #front_nav, #main_nav
   li
@@ -11,6 +11,7 @@
     @extend .quick_ease
 
 #global_sign_in_form
-  +transition('height, opacity', 0.2s, ease-out)
+  height: 0
+  +transition(opacity ease-in 0.2s, height ease-in 0.2s)
   &.open
-    height: 120px
+    height: 220px

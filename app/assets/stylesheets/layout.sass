@@ -8,20 +8,20 @@ form.formtastic
   input, textarea
     width: auto
 
-#header .inner_container
-  +outerRow
-  h1
-    +column(7)
-  #global_search
-    +column(2)
-    input
-      width: auto
-  #account_box
-    +column(3)
-    img.avatar
-      width: 35px
-      height: 35px
+#header
+  .inner_container
+    +outerRow
+    h1
+      +column(7)
+    #global_search
+      +column(2)
+    #account_box
+      +column(3)
+      img.avatar
+        width: 35px
+        height: 35px
   #main_nav
+    +outerRow
     @extend .nav-bar
     @extend .league_gothic
 
@@ -74,11 +74,12 @@ form.formtastic
   +opacity(0)
   +border-radius(.25em)
   +box-shadow(0 0 5px 3px hsla(0, 0%, 0%, 0.65))
+  position: absolute
+  z-index: 3000
+  background: #fff
   &.open
     border-width: 3px
-    height: 110px
-    // Hack to make the sign in form show up correctly in IE7
-    *height: 160px
+    height: 200px
     +opacity(1)
     padding-bottom: 5px
     li
@@ -88,12 +89,8 @@ form.formtastic
   background: $background_color
   .section_header
     #view_options
-      display: inline
-      .sorting
-        margin-right: 2em
-  #people_search_results
-    li
-      width: 600px
+      text-align: right
+      padding: 2px 5px
   .resource_list
     li
       width: auto
