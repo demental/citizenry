@@ -46,9 +46,17 @@
       +section_count_color($events_color)
       +section_hover_color($events_color)
 
+/* Hide main navigation from home page on phones */
+
+.nohome
+  @media screen and (max-width: $bigphone)
+    display: none !important
+
 #site_intro
   padding: 10px
   margin: 67px 0 0 0
+  @media screen and (max-width: $bigphone)
+    margin: 0
   background: #424242
   color: #f2f2f2
   font-size: 28px
