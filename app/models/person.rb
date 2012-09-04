@@ -44,6 +44,15 @@ class Person < ActiveRecord::Base
     read_attribute(:email) || user.try(:email)
   end
 
+  class << self
+    def find_random
+      self.offset(random_count).first
+    end
+    def random_count
+      Random.rand(self.count)
+    end
+  end
+
   private
 
   def matching_user
@@ -68,7 +77,7 @@ class Person < ActiveRecord::Base
   }
 
   def self.find_sample
-    return self.where(:email => User::SAMPLE_USER[:email]).first
+    self.where(:email => User::SAMPLE_USER[:email]).first
   end
 
   def self.find_or_create_sample(create_backreference=true)
@@ -80,7 +89,7 @@ class Person < ActiveRecord::Base
       User.find_or_create_sample(false)
       person.reload!
     end
-    return person
+    person
   end
 end
 
