@@ -73,11 +73,11 @@ gem 'paper_trail_manager'
 
 #--[ View ]---------------------------------------------------------------------
 gem "haml", "~> 3.1.2"
+gem 'sass-rails'
 gem 'formtastic', '~>1.2.4'
 gem 'rdiscount'
 
 group :assets do
-  gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-rails'
