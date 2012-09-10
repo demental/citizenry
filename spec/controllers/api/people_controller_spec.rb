@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Api::PeopleController do
   describe 'GET#random' do
-    before  { Person.stub(:find_random, 'a_person') }
+    before  { Person.stub(find_random: 'a_person') }
     subject { get :random }
     it "should assign a random person to the view" do
       subject
