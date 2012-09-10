@@ -112,10 +112,19 @@ group :development, :test do
 
   gem 'annotate'
   gem "nifty-generators"
+
+  gem 'guard-rspec'
+  gem 'rspec-rails', '>= 2.6.0'
+  gem 'guard-spork'
+  gem 'spork-rails'
+end
+
+group :test, :darwin do
+  gem 'rb-fsevent'
+  gem 'growl'
 end
 
 
-gem 'rspec-rails', '>= 2.6.0'
 group :test do
   # -- [ Testing ] -------------------------------------------------------------
   gem "mocha"
