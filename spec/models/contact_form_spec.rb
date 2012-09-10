@@ -12,6 +12,7 @@ describe ContactForm do
   context "message is missing" do
     before { contact_form.message = nil }
     it { should be_invalid }
+
   end
 
 end

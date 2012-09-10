@@ -6,7 +6,7 @@ class Group < ActiveRecord::Base
 
   has_attached_file :logo, :styles => { :medium => '220x220', :thumb => '48x48' }, :url => "/system/:attachment/:id/:style/:safe_filename"
 
-  default_serialization_options :include => { :projects => {:include => [:tags, :technologies]}, 
+  default_serialization_options :include => { :projects => {:include => [:tags, :technologies]},
                                               :companies => {:include => [:tags, :technologies]},
                                               :members  => {:include => [:tags, :technologies]},
                                               :tags => {},
