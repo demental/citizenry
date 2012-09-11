@@ -73,11 +73,11 @@ gem 'paper_trail_manager'
 
 #--[ View ]---------------------------------------------------------------------
 gem "haml", "~> 3.1.2"
+gem 'sass-rails'
 gem 'formtastic', '~>1.2.4'
 gem 'rdiscount'
 
 group :assets do
-  gem 'sass-rails'
   gem 'coffee-rails'
   gem 'uglifier'
   gem 'jquery-rails'
@@ -133,12 +133,15 @@ group :test do
   gem 'faker', '>= 1.0'
   gem 'uuid'
   gem 'steak', '2.0.0'
-  gem 'capybara', '~> 1.1.1'
+  gem 'capybara-json'
   # gem 'capybara-envjs'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'spork'
 end
+
+#--[ API ]------------------------------------------------------------------
+gem 'rabl-rails'
 
 #--[ Storage-external logs ]------------------------------------------------------------------
 gem 'airbrake'

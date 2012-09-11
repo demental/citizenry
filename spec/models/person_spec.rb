@@ -110,7 +110,7 @@ describe Person do
       bubba = FactoryGirl.create(:person, :name => "Bubba Jack")
 
       bubba.custom_slug = "bob-smith"
-      bob.slug.should == bubba.custom_slug
+      bob.slug.should eq bubba.custom_slug
 
       bubba.should_not be_valid
       bubba.errors[:custom_slug].should be_present
@@ -138,5 +138,12 @@ describe Person do
       person.should_not be_valid
       person.errors[:custom_slug].should be_present
     end
+  end
+  describe 'random person' do
+    before do
+      3.times { FactoryGirl.create(:person) }
+    end
+    subject { Person.find_random }
+    it { should be_a Person }
   end
 end

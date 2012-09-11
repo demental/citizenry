@@ -1,4 +1,4 @@
-Citizenry::Application.routes.draw do 
+Citizenry::Application.routes.draw do
   root :to => "site#index"
 
   get '/search(/:query)' => 'site#search', :as => :search
@@ -68,6 +68,14 @@ Citizenry::Application.routes.draw do
   match '/auth/failure' => 'authentications#auth_failure'
 
   resources :changes, :controller => 'paper_trail_manager/changes'
+
+  namespace :api do
+    resources :people do
+      collection do
+        get :random
+      end
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
