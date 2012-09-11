@@ -133,7 +133,7 @@ group :test do
   gem 'faker', '>= 1.0'
   gem 'uuid'
   gem 'steak', '2.0.0'
-  gem 'capybara', '~> 1.1.1'
+  gem 'capybara-json'
   # gem 'capybara-envjs'
   gem 'launchy'
   gem 'database_cleaner'

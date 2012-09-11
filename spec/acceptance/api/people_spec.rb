@@ -8,8 +8,8 @@ feature "The people API" do
   end
 
   scenario "getting a random person" do
-    visit '/api/people/random.json'
-    puts page.body
-    ActiveSupport::JSON.decode(page).name.should eql 'person_name'
+    get '/api/people/random.json'
+    puts json
+    json['person']['name'].should eql 'person_name'
   end
 end
