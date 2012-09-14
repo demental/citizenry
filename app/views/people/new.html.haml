@@ -1,5 +1,5 @@
 #new_person
-  %h1= t('people.new.title', :organization => SETTINGS['organization']['name'] ) 
+  %h1= t('people.new.title', :organization => SETTINGS['organization']['name'] )
   - if request.post?
     = render 'form'
     = link_to t('button.back'), people_path
@@ -32,7 +32,7 @@
             %li{:class => [person.new_record? ? person.imported_from_provider : 'existing']}
               - if (photo_url = person.photo_import_url || person.photo.url).present?
                 .avatar
-                  %img{:src => photo_url}
+                  = image_tag photo_url
               %h3= person.name
               - if person.imported_from_provider == 'twitter' && person.imported_from_screen_name.present?
                 %strong
