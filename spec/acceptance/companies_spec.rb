@@ -16,6 +16,7 @@ feature "The company index" do
   scenario "should list companies" do
     visit companies_path
     page.should have_css "ul.resource_list li.company", count: 3
+
     @companies.each do |company|
       page.should have_content company.name
     end
@@ -24,9 +25,9 @@ feature "The company index" do
   scenario "should list companies by tag" do
     @first.tag_list = "veryuniquetag"
     @first.save!
-
     visit company_path(@first)
     click_link(@first.tags.first.name)
+
     page.find(".companies.section_header").should have_content @first.tags.first.name.capitalize
     page.should have_content @first.name
   end
@@ -261,4 +262,3 @@ feature "The company edit form" do
     end
   end
 end
-
