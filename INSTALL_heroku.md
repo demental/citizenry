@@ -33,7 +33,7 @@ Installation
 
 1. Migrate database
 
-  heroku run rake db:migrate
+  ```heroku run rake db:migrate```
 
 1. Tell your friends !
 
