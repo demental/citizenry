@@ -37,4 +37,4 @@ Installation
 
 1. Tell your friends !
 
-Note: now that heroku repo has a master branch, you just need to git push heroku for the next updates
+Note: now that heroku repo has a master branch, you just need to ```git push heroku``` for the next updates
