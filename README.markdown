@@ -17,4 +17,4 @@ http://www.theleagueofmoveabletype.com/fonts/7-league-gothic
 Build status
 ------------
 
-[![Build Status](http://travis-ci.org/reidab/citizenry.png)](http://travis-ci.org/reidab/citizenry)
+[![Build Status](https://travis-ci.org/demental/citizenry.png)](https://travis-ci.org/demental/citizenry)
