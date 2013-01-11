@@ -411,7 +411,7 @@ DEPENDENCIES
   fakeweb
   formtastic (~> 1.2.4)
   foursquare2
-  friendly_id
+  friendly_id (~> 4.0.9)
   growl
   guard-rspec
   guard-spork
