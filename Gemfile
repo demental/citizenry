@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.9'
 gem 'rake', :require => false
 gem 'rails-i18n'
 
@@ -59,12 +59,12 @@ gem 'net-dns', '~> 0.6.1', :require => 'net/dns/resolver'
 
 #--[ Model ]--------------------------------------------------------------------
 gem "paperclip", "~> 2.3"
-gem "inherited_resources", "~> 1.3.0"
-gem "responders", "~> 0.6.2"
+gem "inherited_resources", git: 'git://github.com/josevalim/inherited_resources.git'
+gem "responders"
 
 gem 'acts-as-taggable-on', "~> 2.3.1"
 
-gem 'friendly_id', '4.0.0.beta14'
+gem 'friendly_id', "~> 4.0.9"
 
 gem 'paper_trail', '~> 2'
 gem 'paper_trail_manager'

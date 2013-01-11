@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/josevalim/inherited_resources.git
+  revision: d4e3b89a3ad406f9d235f4d72ee4a9930a4ca5a6
+  specs:
+    inherited_resources (1.3.1)
+      has_scope (~> 0.5.0)
+      responders (~> 0.9)
+
+GIT
   remote: git://github.com/pengwynn/linkedin.git
   revision: 5e1a4d501dea19001b2b06b8ec12b9493a16d2e4
   tag: v0.3.7
@@ -28,31 +36,31 @@ GEM
   remote: http://rubygems.org/
   specs:
     Platform (0.4.0)
-    actionmailer (3.2.8)
-      actionpack (= 3.2.8)
+    actionmailer (3.2.9)
+      actionpack (= 3.2.9)
       mail (~> 2.4.4)
-    actionpack (3.2.8)
-      activemodel (= 3.2.8)
-      activesupport (= 3.2.8)
+    actionpack (3.2.9)
+      activemodel (= 3.2.9)
+      activesupport (= 3.2.9)
       builder (~> 3.0.0)
       erubis (~> 2.7.0)
       journey (~> 1.0.4)
       rack (~> 1.4.0)
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
-      sprockets (~> 2.1.3)
-    activemodel (3.2.8)
-      activesupport (= 3.2.8)
+      sprockets (~> 2.2.1)
+    activemodel (3.2.9)
+      activesupport (= 3.2.9)
       builder (~> 3.0.0)
-    activerecord (3.2.8)
-      activemodel (= 3.2.8)
-      activesupport (= 3.2.8)
+    activerecord (3.2.9)
+      activemodel (= 3.2.9)
+      activesupport (= 3.2.9)
       arel (~> 3.0.2)
       tzinfo (~> 0.3.29)
-    activeresource (3.2.8)
-      activemodel (= 3.2.8)
-      activesupport (= 3.2.8)
-    activesupport (3.2.8)
+    activeresource (3.2.9)
+      activemodel (= 3.2.9)
+      activesupport (= 3.2.9)
+    activesupport (3.2.9)
       i18n (~> 0.6)
       multi_json (~> 1.0)
     acts-as-taggable-on (2.3.1)
@@ -140,7 +148,7 @@ GEM
       faraday (>= 0.6, < 0.8)
       faraday_middleware (>= 0.8)
       hashie (~> 1.0)
-    friendly_id (4.0.0.beta14)
+    friendly_id (4.0.9)
     fssm (0.2.9)
     growl (1.0.3)
     guard (1.3.2)
@@ -165,9 +173,6 @@ GEM
       multi_xml
     httpclient (2.2.7)
     i18n (0.6.1)
-    inherited_resources (1.3.1)
-      has_scope (~> 0.5.0)
-      responders (~> 0.6)
     journey (1.0.4)
     jquery-rails (1.0.19)
       railties (~> 3.0)
@@ -261,19 +266,19 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rails (3.2.8)
-      actionmailer (= 3.2.8)
-      actionpack (= 3.2.8)
-      activerecord (= 3.2.8)
-      activeresource (= 3.2.8)
-      activesupport (= 3.2.8)
+    rails (3.2.9)
+      actionmailer (= 3.2.9)
+      actionpack (= 3.2.9)
+      activerecord (= 3.2.9)
+      activeresource (= 3.2.9)
+      activesupport (= 3.2.9)
       bundler (~> 1.0)
-      railties (= 3.2.8)
+      railties (= 3.2.9)
     rails-i18n (0.5.1)
       i18n (~> 0.5)
-    railties (3.2.8)
-      actionpack (= 3.2.8)
-      activesupport (= 3.2.8)
+    railties (3.2.9)
+      actionpack (= 3.2.9)
+      activesupport (= 3.2.9)
       rack-ssl (~> 1.3.2)
       rake (>= 0.8.7)
       rdoc (~> 3.4)
@@ -285,7 +290,8 @@ GEM
     rdiscount (1.6.8)
     rdoc (3.12)
       json (~> 1.4)
-    responders (0.6.5)
+    responders (0.9.3)
+      railties (~> 3.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rspec (2.8.0)
@@ -339,8 +345,9 @@ GEM
     spork-rails (3.2.0)
       rails (>= 3.0.0, < 3.3.0)
       spork (>= 1.0rc0)
-    sprockets (2.1.3)
+    sprockets (2.2.2)
       hike (~> 1.2)
+      multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     steak (2.0.0)
@@ -404,14 +411,14 @@ DEPENDENCIES
   fakeweb
   formtastic (~> 1.2.4)
   foursquare2
-  friendly_id (= 4.0.0.beta14)
+  friendly_id
   growl
   guard-rspec
   guard-spork
   haml (~> 3.1.2)
   hoptoad_notifier
   httparty (~> 0.8.0)
-  inherited_resources (~> 1.3.0)
+  inherited_resources!
   jquery-rails
   json (~> 1.6.1)
   launchy
@@ -436,14 +443,14 @@ DEPENDENCIES
   paperclip (~> 2.3)
   rabl-rails
   rack-jsonp (~> 1.2.0)
-  rails (= 3.2.8)
+  rails (= 3.2.9)
   rails-i18n
   rake
   rb-fsevent
   rcov
   rdiscount
   redfinger (~> 0.1.0)!
-  responders (~> 0.6.2)
+  responders
   rspec-rails (>= 2.6.0)
   ruby-debug
   ruby-debug19
