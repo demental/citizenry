@@ -4,6 +4,9 @@ gem 'rails', '3.2.11'
 gem 'rake'
 gem 'rails-i18n'
 
+group :production do
+  gem 'pg'
+end
 # You may need to add the following to your .bash_profile (or
 # similar):
 #
