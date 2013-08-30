@@ -57,7 +57,7 @@ class AuthProbe
         end
       end
     end
- 
+
     module YahooMailMX
       def self.discover(email)
         host = email.split("@").last
@@ -73,7 +73,7 @@ class AuthProbe
 
     module Twitter
       def self.discover(email)
-        twitter_user_exists = !(HTTParty.get("http://twitter.com/users/email_available", :body => {:email => email}).parsed_response['valid'])
+        twitter_user_exists = !(HTTParty.get("http://twitter.com/users/email_available?email=#{email}").parsed_response['valid'])
         twitter_user_exists ? [:twitter, nil] : nil
       end
     end
@@ -101,7 +101,7 @@ class AuthProbe
     end
 
   end
-  
+
    STRATEGIES = [Strategy::Twitter,
                 Strategy::WebFinger,
                 Strategy::HostOpenID,
